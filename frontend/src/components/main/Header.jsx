@@ -6,7 +6,7 @@ const Header = () => {
 
      <div className="container flex justify-between items-center  m-auto">
      <div className='flex items-center '>
-    
+      
         <img src='./src/assets/logotipo.png' className='  w-[70px]' alt='Logotipo' />
         <p className='font-[Quicksand] text-xl font-medium text-white'>MartialComp</p>
       </div>

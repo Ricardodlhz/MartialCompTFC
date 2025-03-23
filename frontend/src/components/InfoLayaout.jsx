@@ -1,11 +1,11 @@
 import React from 'react'
-import Header from './Header'
-import Footer from './Footer'
+import HeaderInfo from './info/HeaderInfo'
+import Footer from './main/Footer'
 import { Outlet } from 'react-router-dom'
 const InfoLayaout = () => {
     return (
         <>
-            <Header></Header>
+            <HeaderInfo></HeaderInfo>
             <Outlet></Outlet>
             <Footer></Footer>
         </>
