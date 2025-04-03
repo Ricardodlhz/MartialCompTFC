@@ -12,3 +12,26 @@
     }
   }
 }
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.scrolling-container {
+  margin: 20px auto;
+  
+  width: 300px;
+  overflow: hidden;
+  white-space: nowrap;
+  display: flex;
+
+}
+
+.scrolling-content {
+  height: 60px;
+  margin: 0 auto;
+  display: flex;
+  animation: scroll 5s alternate-reverse infinite;
+  gap: 30px;
+}

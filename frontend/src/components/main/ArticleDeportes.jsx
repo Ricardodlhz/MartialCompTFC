@@ -2,7 +2,7 @@ import React from 'react'
 "use client";
 import { cn } from "./../../lib/utils";
 
-
+//Debe ser links los articles para que cuando los pulse me redireccione a la pagina oficial con su informacion
 const ArticleDeportes = () => {
     return (
         <>

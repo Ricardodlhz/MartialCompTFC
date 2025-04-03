@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import SectionDeportes from './main/SectionDeportes'
+
+import SectionPatrocinadores from './main/SectionPatrocinadores'
 const Main = () => {
   return (
     <>
@@ -20,6 +22,7 @@ const Main = () => {
       <div className="container   m-auto mt-10">
         <h2 class=" text-xl  md:text-3xl lg:text-4xl font-bold font-[Roboto] text-white">Elige el deporte que quieras para realizar tu competición  <i class="fa-solid fa-arrow-down text-xl bg-[black] rounded-xl p-2 animate-bounce"></i></h2>
         <SectionDeportes></SectionDeportes>
+        <SectionPatrocinadores></SectionPatrocinadores>
       </div>
 
     </>
