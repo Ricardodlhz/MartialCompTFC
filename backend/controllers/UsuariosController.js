@@ -1,16 +1,95 @@
 const bcrypt = require("bcrypt");
 
-const usuarioService=require('./../services/UsuarioService')
-
-const getUsuarios=async(req,res)=>{
-     try {
-        const usuarios = await usuarioService.getUsuarios()
-        res.status(200).json(usuarios);
-      } catch (error) {
-        res.status(500).json({ error: error.message });
-      }
+const usuarioService = require('./../services/UsuarioService')
+// Obtener todos los usuarios
+const getUsuarios = async (req, res) => {
+  try {
+    const usuarios = await usuarioService.getUsuarios()
+    res.status(200).json(usuarios);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+//Obtener el usuario indicado por id
+const getUsuarioById = async (req, res) => {
+  try {
+    const usuario = await usuarioService.getUsuarioById(req.params.id)
+    if (usuario) {
+      res.status(200).json(usuario);
+    } else {
+      res.status(404).json({ message: "Usuario no encontrado" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 }
 
-module.exports={
-    getUsuarios
+//Crear un usuario nuevo
+const crearUsuario = async (req, res) => {
+  try {
+    const crearUsuario = await usuarioService.crearUsuario({
+      nombre: req.body.nombre,
+      apellido: req.body.apellido,
+      fecha_nac: req.body.fecha_nac,
+      localidad: req.body.localidad,
+      provincia: req.body.provincia,
+      cp: req.body.cp,
+      num_tlf: req.body.num_tlf,
+      password: bcrypt.hashSync(req.body.password, 10),
+      id_academia: req.body.id_academia,
+    })
+    res.status(201).json(crearUsuario)
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+//Actualizar un usuario dado el id
+const actualizarUsuario = async (req, res) => {
+  try {
+    const { id } = req.params
+
+    const updatedUsuario = await usuarioService.actualizarUsuario(id, {
+      nombre: req.body.nombre,
+      apellido: req.body.apellido,
+      fecha_nac: req.body.fecha_nac,
+      localidad: req.body.localidad,
+      provincia: req.body.provincia,
+      cp: req.body.cp,
+      num_tlf: req.body.num_tlf,
+      password: bcrypt.hashSync(req.body.password, 10),
+      id_academia: req.body.id_academia,
+    })
+
+    if (updatedUsuario) {
+      res.status(200).json(updatedUsuario);
+    } else {
+      res.status(404).json({ message: "Usuario no encontrado" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+//Eliminar un usuario
+const eliminarUsuario = async (req, res) => {
+  try {
+    const deleted = await usuarioService.borrarUsuario(req.params.id)
+    if (deleted) {
+      res.status(204).json({ message: "Usuario eliminado" });
+    } else {
+      res.status(404).json({ message: "Usuario no encontrado" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+
+module.exports = {
+  getUsuarios,
+  getUsuarioById,
+  crearUsuario,
+  actualizarUsuario,
+  eliminarUsuario,
 }
