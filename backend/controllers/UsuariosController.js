@@ -27,22 +27,31 @@ const getUsuarioById = async (req, res) => {
 //Crear un usuario nuevo
 const crearUsuario = async (req, res) => {
   try {
-    const crearUsuario = await usuarioService.crearUsuario({
-      nombre: req.body.nombre,
-      apellido: req.body.apellido,
-      fecha_nac: req.body.fecha_nac,
-      localidad: req.body.localidad,
-      provincia: req.body.provincia,
-      cp: req.body.cp,
-      num_tlf: req.body.num_tlf,
-      password: bcrypt.hashSync(req.body.password, 10),
-      id_academia: req.body.id_academia,
-    })
-    res.status(201).json(crearUsuario)
+    console.log("Request body received:", req.body);
+      if (!req.body.password) {
+          return res.status(400).json({ error: "La contraseña es requerida" });
+      }
+
+      const hashedPassword = bcrypt.hashSync(req.body.password, 10);
+
+      const usuario = await usuarioService.crearUsuario({
+          nombre: req.body.nombre,
+          apellido: req.body.apellido,
+          fecha_nac: req.body.fecha_nac,
+          localidad: req.body.localidad,
+          provincia: req.body.provincia,
+          cp: req.body.cp,
+          num_tlf: req.body.num_tlf,
+          email:req.body.email,
+          password: hashedPassword, 
+          id_academia: req.body.id_academia,
+      });
+
+      res.status(201).json(usuario);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+      res.status(500).json({ error: error.message });
   }
-}
+};
 
 //Actualizar un usuario dado el id
 const actualizarUsuario = async (req, res) => {

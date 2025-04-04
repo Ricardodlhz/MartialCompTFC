@@ -9,7 +9,7 @@ Usuarios.init(
     {
         id: {
             type: DataTypes.UUID,
-            defaultValue: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
             allowNull: false,
             primaryKey: true,
         },
@@ -119,21 +119,28 @@ Usuarios.init(
         tableName: 'usuarios',
         timestamps: false,
         underscored: false,
-
-         // Hook antes de crear un usuario
+        hooks: {
+              // Hook antes de crear un usuario
               beforeCreate: async (usuario) => {
-                if (usuario.password) {
-                  const salt = await bcrypt.genSalt(10);
-                  usuario.password = await bcrypt.hash(usuario.password, salt);
+                if (!usuario.password) {
+                    throw new Error("La contraseña es obligatoria");
                 }
-              },
-              // Hook antes de actualizar un usuario
-              beforeUpdate: async (usuario) => {
-                if (usuario.changed("password")) { // Solo hashea si la contraseña cambió
-                  const salt = await bcrypt.genSalt(10);
-                  usuario.password = await bcrypt.hash(usuario.password, salt);
+                console.log(usuario.password)
+                const salt = await bcrypt.genSalt(10);
+                usuario.password = await bcrypt.hash(usuario.password, salt);
+            },
+            
+            beforeUpdate: async (usuario) => {
+                if (usuario.changed("password")) {
+                    if (!usuario.password) {
+                        throw new Error("La contraseña no puede estar vacía");
+                    }
+                    const salt = await bcrypt.genSalt(10);
+                    usuario.password = await bcrypt.hash(usuario.password, salt);
                 }
-              },
+            },
+            },
+       
          
     }
 )
