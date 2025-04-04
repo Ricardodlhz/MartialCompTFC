@@ -7,8 +7,8 @@ class Deportes extends Model{}
 Deportes.init(
     {
         id: {
-            type: DataTypes.UUID,
-            defaultValue: DataTypes.UUID,
+            type: DataTypes.UUIDV4,
+            defaultValue: DataTypes.UUIDV4,
             allowNull: false,
             primaryKey: true,
         },
