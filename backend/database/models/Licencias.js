@@ -11,6 +11,7 @@ Licencias.init(
             allowNull: false,
             primaryKey: true,
         },
+        
     },{
         sequelize,
         modelName: 'Licencias',
