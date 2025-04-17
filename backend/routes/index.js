@@ -12,8 +12,8 @@ router.use("/usuario",usuarioRuta)
 router.use("/deportes",deportesRuta)
 router.use("/eventos",eventosRuta)
 router.use("/gimnasios",gimansioRuta)
-// router.use("/imagenes",imagenesRuta)
-// router.use("/licencias",licenciasRuta)
+router.use("/imagenes",imagenesRuta)
+router.use("/licencias",licenciasRuta)
 
 
 module.exports=router
