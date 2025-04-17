@@ -44,10 +44,18 @@ const borrarEvento=async(id)=>{
         throw new Error("Error al borrar el evento "+error.message)
     }
 }
-
+//Crear evento
+const crearEvento=async(eventoData)=>{
+    try {
+        return await Eventos.create(eventoData);
+      } catch (error) {
+        throw new Error("Error al crear el evento: " + error.message);
+      }
+}
 module.exports={
     getEventos,
     getEventoById,
     actualizarEvento,
-    borrarEvento
+    borrarEvento,
+    crearEvento
 }

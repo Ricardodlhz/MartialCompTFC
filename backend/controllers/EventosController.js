@@ -62,9 +62,23 @@ const borrarEvento=async(req,res)=>{
     }
 }
 
+// Crear un nuevo evento
+const crearEvento = async (req, res) => {
+    try {
+        const nuevoEvento = await eventService.crearEvento({
+            nombre_evento: req.body.nombre_evento,
+            fecha_evento: req.body.fecha_evento,
+            deporte_id: req.body.deporte_id
+        })
+        res.status(201).json(nuevoEvento)
+    } catch (error) {
+        res.status(500).json({ error: error.message })
+    }
+}
 module.exports={
     getEventos,
     getEventById,
     actualizarEvento,
-    borrarEvento
+    borrarEvento,
+    crearEvento
 }

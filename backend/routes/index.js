@@ -10,7 +10,7 @@ const licenciasRuta=require("./LicenciasRuta")
 //rutas
 router.use("/usuario",usuarioRuta)
 router.use("/deportes",deportesRuta)
-// router.use("/eventos",eventosRuta)
+router.use("/eventos",eventosRuta)
 // router.use("/gimnasios",gimansioRuta)
 // router.use("/imagenes",imagenesRuta)
 // router.use("/licencias",licenciasRuta)
