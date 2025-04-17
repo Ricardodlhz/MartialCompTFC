@@ -8,7 +8,7 @@ Eventos.init(
     {
         id: {
             type: DataTypes.UUID,
-            defaultValue: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
             allowNull: false,
             primaryKey: true,
         },

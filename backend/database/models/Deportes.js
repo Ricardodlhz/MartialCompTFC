@@ -7,11 +7,11 @@ class Deportes extends Model{}
 Deportes.init(
     {
         id: {
-            type: DataTypes.UUIDV4,
+            type: DataTypes.STRING, // O DataTypes.UUID si usas una DB que lo soporte
             defaultValue: DataTypes.UUIDV4,
             allowNull: false,
-            primaryKey: true,
-        },
+            primaryKey: true
+          },
 
         nombre_deporte: {
             type: DataTypes.STRING,
