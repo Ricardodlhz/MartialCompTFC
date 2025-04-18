@@ -8,6 +8,8 @@ import InfoLayaout from './components/InfoLayaout.jsx'
 import Federaciones from './components/info/Federaciones.jsx'
 import Comunidad from './components/info/Comunidad.jsx'
 import CrearEvento from './components/info/CrearEvento.jsx'
+import Login from './components/perfil/Login.jsx'
+import Register from './components/perfil/Register.jsx'
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <Routes>
@@ -20,6 +22,8 @@ createRoot(document.getElementById('root')).render(
         <Route path='federaciones' element={<Federaciones></Federaciones>}></Route>
         <Route path='comunidad' element={<Comunidad></Comunidad>}></Route>
         <Route path='crearEvento' element={<CrearEvento></CrearEvento>}></Route>
+        <Route path='login' element={<Login></Login>}></Route>
+        <Route path='registrarse' element={<Register></Register>}></Route>
       </Route>
 
 

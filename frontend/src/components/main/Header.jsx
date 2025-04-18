@@ -16,7 +16,7 @@ const Header = () => {
         <Link to={'/info/eventos'}><p className='text-white font-[Quicksand]'>Eventos</p></Link>
         <Link to={'/info/federaciones'}><p className='text-white font-[Quicksand]'>Federarme</p></Link>
         <Link to={'/info/comunidad'}><p className='text-white font-[Quicksand]'>Comunidad</p></Link>
-        <Link to={'perfil'}><p className='text-white font-[Quicksand]'>Perfil</p></Link>
+        <Link to={'/info/login'}><p className='text-white font-[Quicksand]'>Login</p></Link>
         <img src="./src/assets/españa.png" alt="" className='w-[20px]'/> 
       </div>
      </div>
