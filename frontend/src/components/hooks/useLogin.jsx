@@ -37,13 +37,14 @@ export const useLogin = () => {
             },
             body:JSON.stringify(body)
         })
-      
+        const text = await post.text(); // Obtiene la respuesta como texto
+        console.log("Respuesta del servidor:", text);
         if(post.ok){
             console.log("Has hecho bien el login")
             // navigate("/home", { replace: true });
         
         }else{
-            console.log("No esta correcto las credenciales")
+            console.log("No esta correcto las credenciales: "+post.message)
         }
       }
 

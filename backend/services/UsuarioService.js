@@ -84,9 +84,9 @@ const comprobarUsuario=async(email,password)=>{
         }
     
         console.log("🔐 Contraseña correcta, generando token...");
-        const token = createToken(usuario); 
+        // const token = createToken(usuario); 
     
-        return { status: 200, success: token };
+        return { status: 200 };
       } catch (error) {
         console.error("💥 Error en comprobarUsuario:", error);
         return { status: 500, error: "Error al comprobar", details: error.message };

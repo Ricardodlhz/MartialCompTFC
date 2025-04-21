@@ -32,7 +32,8 @@ const crearUsuario = async (req, res) => {
           return res.status(400).json({ error: "La contraseña es requerida" });
       }
 
-      const hashedPassword = bcrypt.hashSync(req.body.password, 10);
+      // const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
 
       const usuario = await usuarioService.crearUsuario({
           nombre: req.body.nombre,
@@ -43,7 +44,7 @@ const crearUsuario = async (req, res) => {
           cp: req.body.cp,
           num_tlf: req.body.num_tlf,
           email:req.body.email,
-          password: hashedPassword, 
+          password: req.body.password, 
           id_academia: req.body.id_academia,
       });
 
@@ -66,7 +67,7 @@ const actualizarUsuario = async (req, res) => {
       provincia: req.body.provincia,
       cp: req.body.cp,
       num_tlf: req.body.num_tlf,
-      password: bcrypt.hashSync(req.body.password, 10),
+      password: bcrypt.hash(req.body.password, 10),
       id_academia: req.body.id_academia,
     })
 
