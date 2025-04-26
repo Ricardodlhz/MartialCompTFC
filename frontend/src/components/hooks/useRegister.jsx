@@ -1,74 +1,88 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-//Hook personalizado para el registro
 export const useRegister = () => {
 
     const [form, setForm] = useState({
-        nombre:"",
-        apellido:"",
-        fecha_nac:"",
-        localidad:"",
-        provincia:"",
-        cp:"",
-        num_tlf:"",
+        nombre: "",
+        apellido: "",
+        fecha_nac: "",
+        localidad: "",
+        provincia: "",
+        cp: "",
+        num_tlf: "",
         email: "",
         pass: "",
-        id_academia:"",
-        
+        id_academia: "", // aquí guardamos el id del gimnasio
     })
 
-
+    const [gimnasios, setGim] = useState([])
 
     const handdleInputs = (event) => {
         const { name, value } = event.target
         setForm({
-            ...form, [name]: value
+            ...form,
+            [name]: value
         })
     }
 
     const handleSubmit = (event) => {
         event.preventDefault()
         console.log(form)
+        console.log("ID: "+form.id_academia)
         peticionApi()
     }
 
+    useEffect(() => {
+        peticionApiGimnasio()
+    }, [])
 
-    const peticionApi = async () => {
-        let body = {
-            nombre:form.nombre,
-            apellido:form.apellido,
-            fecha_nac:form.fecha_nac,
-            localidad:form.localidad,
-            provincia:form.provincia,
-            cp:form.cp,
-            num_tlf:form.num_tlf,
-            email: form.email,
-            password: form.pass,
-            id_academia:form.id_academia
-            //resto de campos
-        }
-        const post = await fetch("http://localhost:5001/api/usuario", {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json", // Indica que estás enviando JSON
-            },
-            body: JSON.stringify(body)
-        })
-        const text = await post.text(); // Obtiene la respuesta como texto
-        console.log("Respuesta del servidor:", text);
-        if (post.ok) {
-            console.log("Registrado correctamente")
-            // navigate("/home", { replace: true });
-
-        } else {
-            console.log("Error al registrarse "+post.message)
+    const peticionApiGimnasio = async () => {
+        try {
+            const api = await fetch("http://localhost:5001/api/gimnasios")
+            const data = await api.json()
+            console.log(data)
+            setGim(data)
+        } catch (error) {
+            console.error("Error al obtener gimnasios", error)
         }
     }
 
+    const peticionApi = async () => {
+        const body = {
+            nombre: form.nombre,
+            apellido: form.apellido,
+            fecha_nac: form.fecha_nac,
+            localidad: form.localidad,
+            provincia: form.provincia,
+            cp: form.cp,
+            num_tlf: form.num_tlf,
+            email: form.email,
+            password: form.pass,
+            id_academia: form.id_academia
+        }
 
-    return { handdleInputs, handleSubmit, form, setForm };
+        try {
+            const post = await fetch("http://localhost:5001/api/usuario", {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(body)
+            })
+
+            const text = await post.text()
+            console.log("Respuesta del servidor:", text)
+
+            if (post.ok) {
+                console.log("Registrado correctamente")
+                // navigate("/home", { replace: true });
+            } else {
+                console.log("Error al registrarse " + post.status)
+            }
+        } catch (error) {
+            console.error("Error en la petición de registro", error)
+        }
+    }
+
+    return { handdleInputs, handleSubmit, form, setForm, gimnasios }
 }
-
-
-
-
