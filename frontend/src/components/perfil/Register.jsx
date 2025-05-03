@@ -26,6 +26,25 @@ const Register = () => {
             className="mt-1 block w-full border rounded-lg p-2"
           />
         </div>
+
+        <div>
+         
+          <label className="block text-sm font-medium text-gray-700">Cual es tu Perfil</label>
+       
+          <select
+            name="rol"
+            value={form.rol}
+            onChange={handdleInputs}
+            className="mt-1 block w-full border rounded-lg p-2"
+          >
+            <option value="">Selecciona tu perfil</option>
+            <option value="Competidor" >
+                  Competidor
+                </option><option value="Entrenador">
+                  Entrenador
+                </option>
+          </select>
+        </div>
         <div>
           <label className="block text-sm font-medium text-gray-700">Fecha de Nacimiento</label>
           <input

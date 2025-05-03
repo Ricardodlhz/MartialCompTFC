@@ -36,6 +36,7 @@ const crearUsuario = async (req, res) => {
 
 
       const usuario = await usuarioService.crearUsuario({
+        rol:req.body.rol,
           nombre: req.body.nombre,
           apellido: req.body.apellido,
           fecha_nac: req.body.fecha_nac,

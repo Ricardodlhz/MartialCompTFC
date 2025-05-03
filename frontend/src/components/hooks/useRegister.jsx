@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 export const useRegister = () => {
 
     const [form, setForm] = useState({
+        rol:"",
         nombre: "",
         apellido: "",
         fecha_nac: "",
@@ -49,6 +50,7 @@ export const useRegister = () => {
 
     const peticionApi = async () => {
         const body = {
+            rol:form.rol,
             nombre: form.nombre,
             apellido: form.apellido,
             fecha_nac: form.fecha_nac,
