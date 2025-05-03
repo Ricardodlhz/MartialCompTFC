@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 
 export const useRegister = () => {
+    const [errors, setErrors] = useState({});
 
     const [form, setForm] = useState({
         rol:"",
@@ -28,6 +29,7 @@ export const useRegister = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
+        if (!validateForm()) return;
         console.log(form)
         console.log("ID: "+form.id_academia)
         peticionApi()
@@ -86,5 +88,25 @@ export const useRegister = () => {
         }
     }
 
-    return { handdleInputs, handleSubmit, form, setForm, gimnasios }
+    const validateForm = () => {
+        const newErrors = {};
+      
+        if (!form.nombre.trim()) newErrors.nombre = "El nombre es obligatorio";
+        if (!form.apellido.trim()) newErrors.apellido = "El apellido es obligatorio";
+        if (!form.rol) newErrors.rol = "Selecciona un perfil";
+        if (!form.fecha_nac) newErrors.fecha_nac = "La fecha de nacimiento es obligatoria";
+        if (!form.localidad.trim()) newErrors.localidad = "La localidad es obligatoria";
+        if (!form.provincia.trim()) newErrors.provincia = "La provincia es obligatoria";
+        if (!form.cp.trim()) newErrors.cp = "El código postal es obligatorio";
+        if (!form.num_tlf.trim() || !/^\d{8,15}$/.test(form.num_tlf)) newErrors.num_tlf = "Número inválido";
+        if (!form.email.trim() || !/\S+@\S+\.\S+/.test(form.email)) newErrors.email = "Email inválido";
+        if (!form.pass || form.pass.length < 6) newErrors.pass = "La contraseña debe tener al menos 6 caracteres";
+        if (!form.id_academia) newErrors.id_academia = "Selecciona un gimnasio";
+      
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+      };
+      
+
+    return { handdleInputs, handleSubmit, form, setForm, gimnasios,errors }
 }

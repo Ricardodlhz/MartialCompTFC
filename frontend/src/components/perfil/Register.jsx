@@ -1,11 +1,11 @@
 import React from 'react'
 import { useRegister } from '../hooks/useRegister'
 const Register = () => {
-  const { handdleInputs, handleSubmit, form, setForm, gimnasios } = useRegister()
+  const { handdleInputs, handleSubmit, form, setForm, gimnasios,errors } = useRegister()
   return (
     <div className="max-w-xl mx-auto mt-10 p-6 bg-white rounded-2xl shadow-md">
       <h2 className="text-2xl font-bold mb-6 text-center">Registro</h2>
-      <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4">
+      <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4" noValidate>
         <div>
           <label className="block text-sm font-medium text-gray-700">Nombre</label>
           <input
@@ -15,6 +15,8 @@ const Register = () => {
             onChange={handdleInputs}
             className="mt-1 block w-full border rounded-lg p-2 shadow-sm focus:ring-blue-500 focus:border-blue-500"
           />
+          {errors.nombre && <p className="text-red-500 text-sm mt-1">{errors.nombre}</p>}
+
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700">Apellido</label>
@@ -25,6 +27,7 @@ const Register = () => {
             onChange={handdleInputs}
             className="mt-1 block w-full border rounded-lg p-2"
           />
+          {errors.apellido && <p className="text-red-500 text-sm mt-1">{errors.apellido}</p>}
         </div>
 
         <div>
@@ -44,6 +47,7 @@ const Register = () => {
                   Entrenador
                 </option>
           </select>
+          {errors.rol && <p className="text-red-500 text-sm mt-1">{errors.rol}</p>}
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700">Fecha de Nacimiento</label>
@@ -54,6 +58,7 @@ const Register = () => {
             onChange={handdleInputs}
             className="mt-1 block w-full border rounded-lg p-2"
           />
+          {errors.fecha_nac && <p className="text-red-500 text-sm mt-1">{errors.fecha_nac}</p>}
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700">Localidad</label>
@@ -64,6 +69,7 @@ const Register = () => {
             onChange={handdleInputs}
             className="mt-1 block w-full border rounded-lg p-2"
           />
+          {errors.localidad && <p className="text-red-500 text-sm mt-1">{errors.localidad}</p>}
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700">Provincia</label>
@@ -74,6 +80,7 @@ const Register = () => {
             onChange={handdleInputs}
             className="mt-1 block w-full border rounded-lg p-2"
           />
+          {errors.provincia && <p className="text-red-500 text-sm mt-1">{errors.provincia}</p>}
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700">Código Postal</label>
@@ -84,6 +91,7 @@ const Register = () => {
             onChange={handdleInputs}
             className="mt-1 block w-full border rounded-lg p-2"
           />
+          {errors.cp && <p className="text-red-500 text-sm mt-1">{errors.cp}</p>}
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700">Número de Teléfono</label>
@@ -94,6 +102,7 @@ const Register = () => {
             onChange={handdleInputs}
             className="mt-1 block w-full border rounded-lg p-2"
           />
+          {errors.num_tlf && <p className="text-red-500 text-sm mt-1">{errors.num_tlf}</p>}
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700">Email</label>
@@ -104,6 +113,7 @@ const Register = () => {
             onChange={handdleInputs}
             className="mt-1 block w-full border rounded-lg p-2"
           />
+          {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700">Contraseña</label>
@@ -114,6 +124,7 @@ const Register = () => {
             onChange={handdleInputs}
             className="mt-1 block w-full border rounded-lg p-2"
           />
+          {errors.pass && <p className="text-red-500 text-sm mt-1">{errors.pass}</p>}
         </div>
         <div>
           {/* Hacer un select con los nombres de los gyms */}
@@ -142,6 +153,7 @@ const Register = () => {
               <option disabled>Cargando gimnasios...</option>
             )}
           </select>
+          {errors.id_academia && <p className="text-red-500 text-sm mt-1">{errors.id_academia}</p>}
         </div>
         <button
           type="submit"
