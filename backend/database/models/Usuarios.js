@@ -13,6 +13,10 @@ Usuarios.init(
             allowNull: false,
             primaryKey: true,
         },
+        rol:{
+            type:DataTypes.STRING,
+            allowNull: false,
+        },
         nombre: {
             type: DataTypes.STRING,
             allowNull: false,
