@@ -1,41 +1,80 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-//Importo el hook para hacer la peticion a la api y comprobar que el usuario es válido
-import { useLogin } from './../hooks/useLogin'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useLogin } from './../hooks/useLogin';
+
 const Login = () => {
-     const {handdleInputs,handleSubmit,form,setForm}=useLogin();
+    const { handdleInputs, handleSubmit, form, setForm, errors } = useLogin();
+
     return (
-        <form action="" noValidate className='bg-[#d1d0d1] rounded-lg lg:w-[700px] mx-auto flex flex-col items-center justify-center mt-[50px]'>
-            <h1 className='font-[Quicksand] text-xl font-medium'>Iniciar Sesion</h1>
+        <div className="flex items-center justify-center min-h-screen bg-gray-100">
+            <form 
+                noValidate 
+                onSubmit={handleSubmit}
+                className="bg-white shadow-md rounded-lg p-8 w-full max-w-md"
+            >
+                <h1 className="text-2xl font-semibold text-center mb-6 font-[Quicksand]">Iniciar Sesión</h1>
 
-            <div className="flex flex-col items-center justify-center">
-                <div className='flex flex-col'>
-                    <label htmlFor="" className='font-[Quicksand]  font-medium'>E-mail</label>
-                    <input type="email" required
-                        placeholder="Email"
+                {/* Email */}
+                <div className="mb-4">
+                    <label className="block text-sm font-medium mb-1 font-[Quicksand]" htmlFor="email">
+                        E-mail
+                    </label>
+                    <input
+                        id="email"
+                        type="email"
                         name="email"
-                        onChange={handdleInputs}
+                        placeholder="Ingresa tu correo"
                         value={form.email}
-                        className='border rounded-md p-1 hover:cursor-pointer' />
-                </div>
-                <div className='flex flex-col'>
-                    <label htmlFor="" className='font-[Quicksand]  font-medium'>Contraseña</label>
-                    <input type="password" required
-                        placeholder="Contraseña"
-                        name="pass"
                         onChange={handdleInputs}
-                        value={form.pass} className='border rounded-md p-1 hover:cursor-pointer' />
+                        required
+                        className={`w-full p-2 border rounded-md focus:outline-none focus:ring-2 ${
+                            errors.email ? 'border-red-500 ring-red-200' : 'border-gray-300 focus:ring-blue-300'
+                        }`}
+                    />
+                    {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
                 </div>
 
-                <Link to={"/info/recuperarcontrasena"} ><p className='font-[Quicksand]  font-medium'>¿Has olviado la Contraseña?</p></Link>
-                <button type='submit'  onClick={handleSubmit} className=''>Iniciar Sesion</button>
-                <Link to={'/info/registrarse'}><p className='text-white font-[Quicksand]'>Registrarme</p></Link>
+                {/* Contraseña */}
+                <div className="mb-4">
+                    <label className="block text-sm font-medium mb-1 font-[Quicksand]" htmlFor="pass">
+                        Contraseña
+                    </label>
+                    <input
+                        id="pass"
+                        type="password"
+                        name="pass"
+                        placeholder="Ingresa tu contraseña"
+                        value={form.pass}
+                        onChange={handdleInputs}
+                        required
+                        className={`w-full p-2 border rounded-md focus:outline-none focus:ring-2 ${
+                            errors.pass ? 'border-red-500 ring-red-200' : 'border-gray-300 focus:ring-blue-300'
+                        }`}
+                    />
+                    {errors.pass && <p className="text-red-500 text-sm mt-1">{errors.pass}</p>}
+                    {errors.general && <p className="text-red-500 text-sm mt-1">{errors.general}</p>}
+                </div>
 
-            </div>
-        </form>
+                {/* Enlaces y botones */}
+                <div className="flex justify-between items-center text-sm mb-4">
+                    <Link to="/info/recuperarcontrasena" className="text-blue-500 hover:underline">
+                        ¿Has olvidado tu contraseña?
+                    </Link>
+                    <Link to="/info/registrarse" className="text-blue-500 hover:underline">
+                        Registrarme
+                    </Link>
+                </div>
 
+                <button
+                    type="submit"
+                    className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors"
+                >
+                    Iniciar Sesión
+                </button>
+            </form>
+        </div>
+    );
+};
 
-    )
-}
+export default Login;
 
-export default Login

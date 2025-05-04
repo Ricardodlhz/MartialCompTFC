@@ -1,53 +1,84 @@
-import { useState } from 'react'
-import { Navigate, useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-//Hook personalizado
 export const useLogin = () => {
     const navigate = useNavigate();
     const [form, setForm] = useState({
-        email: "",
-        pass: "",
-    })
+        email: '',
+        pass: '',
+    });
 
+    const [errors, setErrors] = useState({
+        email: '',
+        pass: '',
+        general: '',
+    });
+
+    // Validación de campos
+    const validate = () => {
+        const newErrors = {};
+
+        if (!form.email.trim()) {
+            newErrors.email = 'El correo es obligatorio.';
+        } else if (!/\S+@\S+\.\S+/.test(form.email)) {
+            newErrors.email = 'El formato del correo no es válido.';
+        }
+
+        if (!form.pass.trim()) {
+            newErrors.pass = 'La contraseña es obligatoria.';
+        } else if (form.pass.length < 6) {
+            newErrors.pass = 'La contraseña debe tener al menos 6 caracteres.';
+        }
+
+        setErrors(prev => ({ ...prev, ...newErrors, general: '' }));
+        return Object.keys(newErrors).length === 0;
+    };
+
+    // Maneja el cambio en los inputs
     const handdleInputs = (event) => {
-        const { name, value } = event.target
-        setForm({
-            ...form, [name]: value
-        })
-    }
+        const { name, value } = event.target;
+        setForm(prev => ({ ...prev, [name]: value }));
+        setErrors(prev => ({ ...prev, [name]: '', general: '' })); // Limpia errores al escribir
+    };
 
-    const handleSubmit = (event) => {
-        event.preventDefault()
-        console.log(form)
-        peticionApi()
-    }
+    // Maneja el envío del formulario
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        if (!validate()) return;
 
+        try {
+            const res = await fetch("http://localhost:5001/api/usuario/login", {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email: form.email,
+                    password: form.pass
+                })
+            });
 
-    const peticionApi = async () => {
+            const data = await res.json(); // Asumiendo que la respuesta es JSON
 
+            if (res.ok) {
+                console.log("Login exitoso");
+                navigate("/"); // Redirecciona sin recargar
+            } else {
+                console.error("Error en las credenciales:", data.message || 'Error desconocido');
+                setErrors(prev => ({ ...prev, general: data.message || 'Credenciales incorrectas' }));
+            }
 
-
-        let body = {
-            email: form.email,
-            password: form.pass
+        } catch (error) {
+            console.error("Error de red:", error.message);
+            setErrors(prev => ({ ...prev, general: 'No se pudo conectar al servidor. Inténtalo más tarde.' }));
         }
-        const post = await fetch("http://localhost:5001/api/usuario/login", {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json", // Indica que estás enviando JSON
-            },
-            body: JSON.stringify(body)
-        })
-        const text = await post.text(); // Obtiene la respuesta como texto
-        console.log("Respuesta del servidor:", text);
-        if (post.ok) {
-            console.log("Has hecho bien el login")
-            window.location.href = "/" // Esto hace un refresh completo
-        } else {
-            console.log("No está correcto las credenciales: " + post.message)
-        }
+    };
 
-    }
-
-    return { handdleInputs, handleSubmit, form, setForm };
-}
+    return {
+        handdleInputs,
+        handleSubmit,
+        form,
+        setForm,
+        errors
+    };
+};
