@@ -10,7 +10,7 @@ const HeaderInfo = () => {
     <div className='flex items-center '>
      
        <img src={imagen} className='  w-[70px]' alt='Logotipo' />
-       <Link to={'/'}><p className='font-[Quicksand] text-xl font-medium text-white'>MartialComp</p></Link>
+       <a href='/' className='font-[Quicksand] text-xl font-medium text-white'>MartialComp</a>
      </div>
      <i className="fa-solid fa-bars md:!hidden text-white"></i>
 

@@ -7,6 +7,7 @@ const Eventos=require('./Eventos')
 
 const Gimnasios=require('./Gimnasios')
 const Imagenes=require('./Imagenes')
+const ImagenesEventos=require('./ImagenesEventos')
 const Licencias=require('./Licencias')
 
 const Usuarios=require('./Usuarios')
@@ -22,6 +23,7 @@ Deportes.hasOne(Eventos,{foreignKey:'deporte_id'})
 
 //Relaciones Evento
 Eventos.belongsTo(Deportes,{foreignKey:'deporte_id'})
+Eventos.hasOne(ImagenesEventos,{foreignKey:'id_evento'})
 //Usuarios_registrado_evento
 Usuarios.belongsToMany(Eventos,{through:'Usuarios_registrado_evento',foreignKey:'id_usuario'})
 Eventos.belongsToMany(Usuarios,{through:'Usuarios_registrado_evento',foreignKey:'id_evento'})
@@ -36,7 +38,7 @@ module.exports = {
     sequelize,
     Deportes,
     Eventos,
-    
+    ImagenesEventos,
     Gimnasios,
     Imagenes,
     Licencias,

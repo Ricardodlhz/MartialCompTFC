@@ -25,6 +25,6 @@ app.use("/api",router)
 app.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${PORT}`));
 
 //sequealize
-sequelize.sync({ force: false }).then(() => { // 👈 Cambia `false` a `true` SOLO PARA PRUEBAS
+sequelize.sync({ force: true }).then(() => { // 👈 Cambia `false` a `true` SOLO PARA PRUEBAS
     console.log('📌 Base de datos sincronizada con MySQL');
   });

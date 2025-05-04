@@ -25,7 +25,24 @@ const getImagenByUserId = async (req, res) => {
         res.status(500).json({ message: error.message })
     }
 }
-
+// Crear una nueva imagen
+const crearImagen = async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ error: "No se subió ninguna imagen" });
+      }
+  
+      // Guardar la imagen en la base de datos como binario (BLOB)
+      const createdImagen = await imagenService.crearImagen({
+        imagen: req.file.buffer, // Aquí guardamos el binario de la imagen
+        id_usuario: req.body.id_usuario,
+      });
+  
+      res.status(201).json({ mensaje: "Imagen subida con éxito", id: createdImagen.id });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
 // Borrar una imagen por id
 const deleteImagen = async (req, res) => {
     const { id } = req.params
@@ -39,6 +56,7 @@ const deleteImagen = async (req, res) => {
 
 module.exports = {
     getAllImagenes,
+    crearImagen,
     getImagenByUserId,
     deleteImagen
 }

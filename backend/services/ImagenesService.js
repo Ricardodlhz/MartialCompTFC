@@ -17,7 +17,13 @@ const getImagenById = async (id) => {
     return imagen
 }
 
-
+const crearImagen = async (imagenData) => {
+    try {
+      return await Imagen.create(imagenData);
+    } catch (error) {
+      throw new Error("Error al crear la imagen: " + error.message);
+    }
+  };
 
 //Borrar imagen
 const borrarImagen = async (id) => {
@@ -36,6 +42,7 @@ const borrarImagen = async (id) => {
 
 module.exports={
     getImagenes,
+    crearImagen,
     getImagenById,
     borrarImagen
 }
