@@ -62,7 +62,9 @@ export const useLogin = () => {
 
             if (res.ok) {
                 console.log("Login exitoso");
-                navigate("/"); // Redirecciona sin recargar
+                //guardo en localStorage el email para poder hacer peticion a través del email a la api y ver el rol
+                localStorage.setItem("email", form.email); // Guarda el email en localStorage
+                location.href="/"
             } else {
                 console.error("Error en las credenciales:", data.message || 'Error desconocido');
                 setErrors(prev => ({ ...prev, general: data.message || 'Credenciales incorrectas' }));

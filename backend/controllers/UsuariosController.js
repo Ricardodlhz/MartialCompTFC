@@ -10,10 +10,10 @@ const getUsuarios = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 }
-//Obtener el usuario indicado por id
-const getUsuarioById = async (req, res) => {
+//Obtener el usuario indicado por email
+const getUsuarioByEmail = async (req, res) => {
   try {
-    const usuario = await usuarioService.getUsuarioById(req.params.id)
+    const usuario = await usuarioService.getUsuarioByEmail(req.params.email)
     if (usuario) {
       res.status(200).json(usuario);
     } else {
@@ -119,7 +119,7 @@ const comprobarUsuario = async (req, res) => {
 
 module.exports = {
   getUsuarios,
-  getUsuarioById,
+  getUsuarioByEmail,
   crearUsuario,
   actualizarUsuario,
   eliminarUsuario,

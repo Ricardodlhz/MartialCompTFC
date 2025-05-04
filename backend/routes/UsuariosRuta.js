@@ -2,7 +2,7 @@ const router = require('express').Router();
 const usuarioController=require('./../controllers/UsuariosController')
 
 router.get('/',usuarioController.getUsuarios)
-router.get('/:id',usuarioController.getUsuarioById)
+router.get('/:email',usuarioController.getUsuarioByEmail)
 router.post('/',usuarioController.crearUsuario)
 router.put('/:id',usuarioController.actualizarUsuario)
 router.delete('/:id',usuarioController.eliminarUsuario)

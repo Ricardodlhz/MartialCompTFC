@@ -11,11 +11,11 @@ const getUsuarios=async()=>{
 }
 
 //Recoger el usuario por ID
-const getUsuarioById=async(id)=>{
+const getUsuarioByEmail=async(email)=>{
     try {
-        return await Usuario.findByPk(id);
+        return await Usuario.findOne({ where: { email:email } });
       } catch (error) {
-        throw new Error("Error al pedir un usuario por id: " + error.message);
+        throw new Error("Error al pedir un usuario por email: " + error.message);
       }
 }
 
@@ -94,7 +94,7 @@ const comprobarUsuario=async(email,password)=>{
 }
 module.exports={
     getUsuarios,
-    getUsuarioById,
+    getUsuarioByEmail,
     crearUsuario,
     actualizarUsuario,
     borrarUsuario,

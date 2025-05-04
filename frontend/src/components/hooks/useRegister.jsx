@@ -79,6 +79,7 @@ export const useRegister = () => {
 
             if (post.ok) {
                 console.log("Registrado correctamente")
+                location.href="/"
                 // navigate("/home", { replace: true });
             } else {
                 console.log("Error al registrarse " + post.status)
