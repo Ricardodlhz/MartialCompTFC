@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+
 
 export const useLogin = () => {
-    const navigate = useNavigate();
+    
     const [form, setForm] = useState({
         email: '',
         pass: '',
@@ -26,8 +26,8 @@ export const useLogin = () => {
 
         if (!form.pass.trim()) {
             newErrors.pass = 'La contraseña es obligatoria.';
-        } else if (form.pass.length < 6) {
-            newErrors.pass = 'La contraseña debe tener al menos 6 caracteres.';
+        } else if (form.pass.length < 8) {
+            newErrors.pass = 'La contraseña debe tener al menos 8 caracteres.';
         }
 
         setErrors(prev => ({ ...prev, ...newErrors, general: '' }));
