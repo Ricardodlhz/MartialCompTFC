@@ -1,7 +1,7 @@
 const ImagenesEventos = require("./../database/models/ImagenesEventos")
 
 // Obtener todas las imágenes
-const getImagenesEventos = async () => {
+const getImagenes = async () => {
     try {
         return await ImagenesEventos.findAll()
     } catch (error) {
@@ -10,7 +10,7 @@ const getImagenesEventos = async () => {
 }
 
 // Obtener imagen por id
-const getImagenEventoById = async (id) => {
+const getImagenById = async (id) => {
     try {
         const imagen = await ImagenesEventos.findByPk(id)
         if (!imagen) throw new Error("Imagen no encontrada")
@@ -21,7 +21,7 @@ const getImagenEventoById = async (id) => {
 }
 
 // Subir nueva imagen
-const subirImagenEvento = async (imagenBuffer) => {
+const crearImagen = async (imagenBuffer) => {
     try {
         const nuevaImagen = await ImagenesEventos.create({
             imagen: imagenBuffer
@@ -33,22 +33,22 @@ const subirImagenEvento = async (imagenBuffer) => {
 }
 
 // Actualizar imagen existente
-const actualizarImagenEvento = async (id, nuevaImagenBuffer) => {
-    try {
-        const imagen = await ImagenesEventos.findByPk(id)
-        if (!imagen) throw new Error("Imagen no encontrada")
+// const actualizarImagenEvento = async (id, nuevaImagenBuffer) => {
+//     try {
+//         const imagen = await ImagenesEventos.findByPk(id)
+//         if (!imagen) throw new Error("Imagen no encontrada")
 
-        imagen.imagen = nuevaImagenBuffer
-        await imagen.save()
+//         imagen.imagen = nuevaImagenBuffer
+//         await imagen.save()
 
-        return imagen
-    } catch (error) {
-        throw new Error("Error al actualizar la imagen: " + error.message)
-    }
-}
+//         return imagen
+//     } catch (error) {
+//         throw new Error("Error al actualizar la imagen: " + error.message)
+//     }
+// }
 
 // Borrar imagen por id
-const borrarImagenEvento = async (id) => {
+const borrarImagen = async (id) => {
     try {
         const imagen = await ImagenesEventos.findByPk(id)
         if (!imagen) throw new Error("Imagen no encontrada")
@@ -61,9 +61,8 @@ const borrarImagenEvento = async (id) => {
 }
 
 module.exports = {
-    getImagenesEventos,
-    getImagenEventoById,
-    subirImagenEvento,
-    actualizarImagenEvento,
-    borrarImagenEvento
+    getImagenes,
+    getImagenById,
+    crearImagen,
+    borrarImagen
 }

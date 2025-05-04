@@ -5,6 +5,7 @@ const deportesRuta=require("./DeportesRuta")
 const eventosRuta=require("./EventosRuta")
 const gimansioRuta=require("./GimnasiosRuta")
 const imagenesRuta=require("./ImagenesRuta")
+const imagenEventoRuta=require("./ImagenesEventosRuta")
 const licenciasRuta=require("./LicenciasRuta")
 
 //rutas
@@ -13,6 +14,7 @@ router.use("/deportes",deportesRuta)
 router.use("/eventos",eventosRuta)
 router.use("/gimnasios",gimansioRuta)
 router.use("/imagenes",imagenesRuta)
+router.use("/imagenesevento",imagenEventoRuta)
 router.use("/licencias",licenciasRuta)
 
 
