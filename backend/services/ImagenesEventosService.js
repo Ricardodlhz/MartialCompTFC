@@ -21,16 +21,17 @@ const getImagenById = async (id) => {
 }
 
 // Subir nueva imagen
-const crearImagen = async (imagenBuffer) => {
+const crearImagen = async ({ imagen, id_evento }) => {
     try {
-        const nuevaImagen = await ImagenesEventos.create({
-            imagen: imagenBuffer
-        })
-        return nuevaImagen
+      const nuevaImagen = await ImagenesEventos.create({
+        imagen: imagen,
+        id_evento: id_evento,
+      });
+      return nuevaImagen;
     } catch (error) {
-        throw new Error("Error al subir la imagen: " + error.message)
+      throw new Error("Error al subir la imagen: " + error.message);
     }
-}
+  };
 
 // Actualizar imagen existente
 // const actualizarImagenEvento = async (id, nuevaImagenBuffer) => {
