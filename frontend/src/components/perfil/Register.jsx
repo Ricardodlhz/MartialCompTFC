@@ -43,9 +43,13 @@ const Register = () => {
             <option value="">Selecciona tu perfil</option>
             <option value="Competidor" >
                   Competidor
-                </option><option value="Entrenador">
-                  Entrenador
                 </option>
+                <option value="Entrenador">
+                  Entrenador
+                </option>   
+                {/* <option value="Admin">
+                  Admin
+                </option>               */}
           </select>
           {errors.rol && <p className="text-red-500 text-sm mt-1">{errors.rol}</p>}
         </div>
