@@ -13,8 +13,21 @@ export const useEventos=()=>{
     }
     
     useEffect(()=>{peticionApiDatosEvento()},[])
+    const Submitborrar=(id,nombre)=>{
+        console.log("El id recogido es: "+id)
+        borrarEvento(id,nombre)
+    }
+    const borrarEvento=async(id,nombre)=>{
+      const respuesta = await fetch(`http://localhost:5001/api/eventos/${id}`, {
+        method: 'DELETE'
+      })
 
+      if(respuesta.ok){
+        console.log("borrado")
+        location.reload()
+        alert("Evento "+nombre+" borrado correctamente")
+      }
+    }
 
-
-    return {datos}
+    return {datos,Submitborrar}
 }
