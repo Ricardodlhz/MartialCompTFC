@@ -58,10 +58,11 @@ export default function useCrearEventos() {
            
       // 2️⃣ POST imagen (si hay imagen)
       if (eventImage) {
+        let id_evento=eventoData.id
         const formData = new FormData();
         formData.append("imagen", eventImage);
-        formData.append("eventoId", eventoData.id); // usa el id recibido
-        
+        formData.append("id_evento", id_evento); // usa el id recibido
+        console.log("id_evento"+id_evento)
         const imagenResponse = await fetch("http://localhost:5001/api/imagenesevento", {
           method: "POST",
           // body: JSON.stringify({
@@ -69,8 +70,9 @@ export default function useCrearEventos() {
           //   id_evento: eventoData.id
           // }),
           body:formData,
+         
         });
-
+        
         if (!imagenResponse.ok) {
           const errorText = await imagenResponse.text();
           console.error("Respuesta de error:", errorText);

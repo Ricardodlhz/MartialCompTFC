@@ -10,9 +10,9 @@ const getImagenes = async () => {
 }
 
 // Obtener imagen por id
-const getImagenById = async (id) => {
+const getImagenById = async (id_evento) => {
     try {
-        const imagen = await ImagenesEventos.findByPk(id)
+        const imagen = await ImagenesEventos.findOne({ where: { id_evento:id_evento } });
         if (!imagen) throw new Error("Imagen no encontrada")
         return imagen
     } catch (error) {

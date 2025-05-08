@@ -18,7 +18,9 @@ const getImagenByUserId = async (req, res) => {
         if (!imagen || imagen.length === 0) {
             return res.status(404).json({ message: "No se encontraron imágenes para este usuario" })
         }
-        res.status(200).json(imagen)
+        res.set('Content-Type', 'image/jpeg'); // o image/png según lo que guardes
+        res.send(imagen.imagen); // envías el binario directo
+        // res.status(200).json(imagen)
     } catch (error) {
         res.status(500).json({ message: error.message })
     }
