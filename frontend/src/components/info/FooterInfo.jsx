@@ -2,7 +2,7 @@ import React from 'react'
 import imagen from './../../assets/logotipo.png'
 const FooterInfo = () => {
   return (
-    <footer class="bg-black text-white py-10">
+    <footer class="bg-black text-white py-10 ">
     <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-6">
       <div>
 

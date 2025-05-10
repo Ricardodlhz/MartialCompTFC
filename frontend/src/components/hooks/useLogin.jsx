@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 
 
 export const useLogin = () => {
-    
+
     const [form, setForm] = useState({
         email: '',
         pass: '',
@@ -13,7 +13,18 @@ export const useLogin = () => {
         pass: '',
         general: '',
     });
+    const [login, setEmail] = useState(null);
 
+    useEffect(() => {
+        const storedEmail = localStorage.getItem("email");
+        setEmail(storedEmail);
+    }, []);
+       // Función para cerrar sesión
+  const handleLogout = () => {
+    localStorage.clear()   // o localStorage.removeItem("email") si solo quieres borrar el email
+    
+    window.location.reload() // para refrescar el estado de la app si hace falta
+  }
     // Validación de campos
     const validate = () => {
         const newErrors = {};
@@ -64,7 +75,7 @@ export const useLogin = () => {
                 console.log("Login exitoso");
                 //guardo en localStorage el email para poder hacer peticion a través del email a la api y ver el rol
                 localStorage.setItem("email", form.email); // Guarda el email en localStorage
-                location.href="/"
+                location.href = "/"
             } else {
                 console.error("Error en las credenciales:", data.message || 'Error desconocido');
                 setErrors(prev => ({ ...prev, general: data.message || 'Credenciales incorrectas' }));
@@ -76,11 +87,14 @@ export const useLogin = () => {
         }
     };
 
+
     return {
         handdleInputs,
         handleSubmit,
         form,
         setForm,
-        errors
+        errors,
+        login,
+        handleLogout
     };
 };
