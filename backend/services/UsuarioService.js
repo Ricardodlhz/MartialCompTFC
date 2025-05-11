@@ -68,7 +68,7 @@ const actualizarContraseña = async (id,  usuarioData) => {
         console.error(error);
       });
       
-   return await usuario.update(usuarioData);
+   return await usuario.update({password:usuarioData.password});
   } catch (error) {
     throw new Error("Error al modificar el usuario: " + error.message);
   }
