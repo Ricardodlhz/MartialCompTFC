@@ -2,10 +2,11 @@ import React from 'react'
 import { useEffect,useState } from 'react'
 import {useEventos} from './../hooks/useEventos'
 import { useRols } from '../hooks/useRol'
+
 const Eventos = () => {
   //Recojo el rol, y en caso de ser un administrador puede borrar el evento
-  const {rol}=useRols()
-  const {datos,Submitborrar}=useEventos()
+  const {rol,email}=useRols()
+  const {datos,Submitborrar,registrarseEvento,submitRegistrarse}=useEventos()
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
     {datos.length > 0 ? (
@@ -25,6 +26,14 @@ const Eventos = () => {
 
               <button onClick={()=>Submitborrar(dato.id,dato.nombre_evento)} className='bg-[#d1d1d1] hover:bg-[#e7e7e7] hover:cursor-pointer mt-5 rounded-lg p-2 mr-5'>
                 Borrar
+              </button>
+            
+          )}
+
+           {rol === "Competidor" && (
+
+              <button onClick={()=>submitRegistrarse(email,dato.id)} className='bg-[#d1d1d1] hover:bg-[#e7e7e7] hover:cursor-pointer mt-5 rounded-lg p-2 mr-5'>
+                Incribirse en el evento
               </button>
             
           )}

@@ -22,8 +22,8 @@ export const useLogin = () => {
        // Función para cerrar sesión
   const handleLogout = () => {
     localStorage.clear()   // o localStorage.removeItem("email") si solo quieres borrar el email
+    location.href="/"
     
-    window.location.reload() // para refrescar el estado de la app si hace falta
   }
     // Validación de campos
     const validate = () => {

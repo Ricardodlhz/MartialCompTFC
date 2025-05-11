@@ -24,7 +24,7 @@ const Header = () => {
           {/* Icono de perfil si hay email */}
           {login && (
             <div className='flex justify-center items-center gap-4'>
-               <Link to={'/perfil'}>
+               <Link to={'/info/perfil'}>
               <i class="fa-solid fa-user text-white"></i>
             </Link>
 
