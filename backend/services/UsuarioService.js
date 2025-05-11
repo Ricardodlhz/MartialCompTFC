@@ -42,8 +42,7 @@ const actualizarUsuario = async (id, usuarioData) => {
     throw new Error("Error al modificar el usuario: " + error.message);
   }
 };
-//Recovery TDEEN6MEQN5L75ZMFAJ55A86 de send
-//Api key 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
+
 const actualizarContraseña = async (id,  usuarioData) => {
   // Configurar transporter de nodemailer (usa tus credenciales)
   console.log(usuarioData)
