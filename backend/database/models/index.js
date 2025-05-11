@@ -29,8 +29,8 @@ Usuarios.belongsToMany(Eventos,{through:'Usuarios_registrado_evento',foreignKey:
 Eventos.belongsToMany(Usuarios,{through:'Usuarios_registrado_evento',foreignKey:'id_evento'})
 
 //Federados
-Usuarios.belongsToMany(Licencias,{through:'Federados',foreignKey:'id_usuario'})
-Licencias.belongsToMany(Usuarios,{through:'Federados',foreignKey:'id_licencia'})
+Usuarios.belongsToMany(Deportes,{through:'Federados',foreignKey:'id_usuario'})
+Deportes.belongsToMany(Usuarios,{through:'Federados',foreignKey:'id_deporte'})
 
 //Relaciones federaciones
 Deportes.hasOne(Licencias,{foreignKey:'id_deporte'})

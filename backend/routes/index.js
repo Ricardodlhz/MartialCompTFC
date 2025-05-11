@@ -8,6 +8,7 @@ const imagenesRuta=require("./ImagenesRuta")
 const imagenEventoRuta=require("./ImagenesEventosRuta")
 const licenciasRuta=require("./LicenciasRuta")
 const usuarioRegistradoEvento=require("./usuario_registrado_evento")
+const federados=require("./fedrados")
 //rutas
 router.use("/usuario",usuarioRuta)
 router.use("/deportes",deportesRuta)
@@ -17,5 +18,5 @@ router.use("/imagenes",imagenesRuta)
 router.use("/imagenesevento",imagenEventoRuta)
 router.use("/licencias",licenciasRuta)
 router.use("/usuarioregistradoevento",usuarioRegistradoEvento)
-
+router.use("/federados",federados)
 module.exports=router
