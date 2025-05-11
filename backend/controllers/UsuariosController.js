@@ -82,7 +82,24 @@ const actualizarUsuario = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 }
+const actualizarContraseña=async(req,res)=>{
+  try {
+    const { id } = req.params
 
+    const updatedUsuario = await usuarioService.actualizarContraseña(id, {
+      email:req.body.email,
+      password:req.body.password,
+    })
+
+    if (updatedUsuario) {
+      res.status(200).json(updatedUsuario);
+    } else {
+      res.status(404).json({ message: "Usuario no encontrado" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
 //Eliminar un usuario
 const eliminarUsuario = async (req, res) => {
   try {
@@ -125,4 +142,5 @@ module.exports = {
   actualizarUsuario,
   eliminarUsuario,
   comprobarUsuario,
+  actualizarContraseña
 }

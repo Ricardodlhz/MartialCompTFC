@@ -11,6 +11,7 @@ import CrearEvento from './components/info/CrearEvento.jsx'
 import Login from './components/perfil/Login.jsx'
 import Register from './components/perfil/Register.jsx'
 import Perfil from './components/perfil/Perfil.jsx'
+import ResetarPassword from './components/info/ResetarPassword.jsx'
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <Routes>
@@ -26,6 +27,7 @@ createRoot(document.getElementById('root')).render(
         <Route path='login' element={<Login></Login>}></Route>
         <Route path='registrarse' element={<Register></Register>}></Route>
         <Route path='perfil' element={<Perfil></Perfil>}></Route>
+        <Route path="reset" element={<ResetarPassword></ResetarPassword>}></Route>
       </Route>
 
 

@@ -57,7 +57,7 @@ const Login = () => {
 
                 {/* Enlaces y botones */}
                 <div className="flex justify-between items-center text-sm mb-4">
-                    <Link to="/info/recuperarcontrasena" className="text-blue-500 hover:underline">
+                    <Link to="/info/reset" className="text-blue-500 hover:underline">
                         ¿Has olvidado tu contraseña?
                     </Link>
                     <Link to="/info/registrarse" className="text-blue-500 hover:underline">

@@ -24,6 +24,9 @@
   "dependencies": {
   
     
+  "@sendgrid/mail": "^8.1.5",
+  
+    
   "bcrypt": "^5.1.1",
   
     
