@@ -68,7 +68,8 @@ const actualizarUsuario = async (req, res) => {
       provincia: req.body.provincia,
       cp: req.body.cp,
       num_tlf: req.body.num_tlf,
-      password: bcrypt.hash(req.body.password, 10),
+      // password: bcrypt.hash(req.body.password, 10),
+      password:req.body.password,
       id_academia: req.body.id_academia,
     })
 
