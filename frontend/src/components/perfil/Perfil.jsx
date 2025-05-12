@@ -2,22 +2,17 @@ import React from 'react'
 import { usePerfil } from '../hooks/usePerfil';
 import { useRols } from '../hooks/useRol';
 const Perfil = () =>  {
-  const {id}=useRols()
+  const {id,email}=useRols()
   const {
     imagePreview,
     uploading,
     error,
     successMessage,
     handleImageChange,
-  } = usePerfil();
+    user,
+  } = usePerfil(email);
 
-  const user = {
-    id_usuario: 123,
-    name: "Juan Pérez",
-    email: "juanperez@example.com",
-    gym: "Iron Warriors Gym",
-    competition: "Campeonato Nacional de Fisicoculturismo 2025",
-  };
+  
 
   return (
     <div className="max-w-sm mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">

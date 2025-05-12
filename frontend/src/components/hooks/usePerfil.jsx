@@ -1,11 +1,34 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export const usePerfil = () => {
+export const usePerfil = (email) => {
     const [imagePreview, setImagePreview] = useState(null);
     const [uploading, setUploading] = useState(false);
     const [error, setError] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
+    const [nombre, setNombre] = useState([])
+    const [gym, setGym] = useState([])
+    const user = {
+        id_usuario: "",
+        name: nombre,
+        email: email,
+        gym: gym,
+        competition: "Campeonato Nacional de Fisicoculturismo 2025",
+    };
+    useEffect(() => { cargarDatos() }, [email])
 
+    const cargarDatos = async () => {
+        const api = await fetch("http://localhost:5001/api/usuario/" + user.email)
+        const data = await api.json()
+        setNombre(data.nombre)
+        recogerNombreGym(data.id_academia)
+        return data
+    }
+    const recogerNombreGym=async(id_academia)=>{
+        const api=await fetch("http://localhost:5001/api/gimnasios/"+id_academia)
+        const data = await api.json()
+        setGym(data.nombre_gimnasio)
+        return data
+    }
     const handleImageChange = (e, userId) => {
         const file = e.target.files[0];
         if (file) {
@@ -38,7 +61,7 @@ export const usePerfil = () => {
             }
 
             const data = await response.json();
-            
+
             setSuccessMessage("Imagen subida correctamente 🎉");
             console.log("Respuesta del servidor:", data);
         } catch (err) {
@@ -52,8 +75,8 @@ export const usePerfil = () => {
     const borrarImagen = async (idUsuario) => {
         const api = await fetch("http://localhost:5001/api/imagenes")
         const data = await api.json()
-        let id=data.find(dato=>dato.id_usuario==idUsuario)
-         if (data) {
+        let id = data.find(dato => dato.id_usuario == idUsuario)
+        if (data) {
             const borrarApi = await fetch("http://localhost:5001/api/imagenes/" + id.id, {
                 method: 'DELETE',
                 headers: {
@@ -62,7 +85,7 @@ export const usePerfil = () => {
                 }
             })
 
-            if(borrarApi.ok){
+            if (borrarApi.ok) {
                 location.reload()
                 console.log("BORRADO")
             }
@@ -75,5 +98,6 @@ export const usePerfil = () => {
         error,
         successMessage,
         handleImageChange,
+        user
     };
 };
