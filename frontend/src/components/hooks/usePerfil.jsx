@@ -7,12 +7,13 @@ export const usePerfil = (email) => {
     const [successMessage, setSuccessMessage] = useState(null);
     const [nombre, setNombre] = useState([])
     const [gym, setGym] = useState([])
+    const [competicion, setCompeticion] = useState([])
     const user = {
         id_usuario: "",
         name: nombre,
         email: email,
         gym: gym,
-        competition: "Campeonato Nacional de Fisicoculturismo 2025",
+        competition: competicion,
     };
     useEffect(() => { cargarDatos() }, [email])
 
@@ -21,12 +22,22 @@ export const usePerfil = (email) => {
         const data = await api.json()
         setNombre(data.nombre)
         recogerNombreGym(data.id_academia)
+        competicionesApuntado(data.id)
         return data
     }
     const recogerNombreGym=async(id_academia)=>{
         const api=await fetch("http://localhost:5001/api/gimnasios/"+id_academia)
         const data = await api.json()
         setGym(data.nombre_gimnasio)
+        return data
+    }
+
+    const competicionesApuntado=async(idUsuario)=>{
+        
+        const api=await fetch("http://localhost:5001/api/usuarioregistradoevento/"+idUsuario)
+        const data = await api.json()
+        
+        setCompeticion(data.eventos)
         return data
     }
     const handleImageChange = (e, userId) => {

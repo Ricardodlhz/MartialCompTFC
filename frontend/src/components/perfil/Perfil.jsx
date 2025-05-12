@@ -53,7 +53,9 @@ const Perfil = () =>  {
         <h3 className="text-lg font-semibold text-indigo-700">
           Competición Apuntada
         </h3>
-        <p className="text-gray-700 mt-2">{user.competition}</p>
+       
+        {user.competition.length>0?(user.competition.map((evento)=><p>{evento.nombre_evento}</p>)):(<p>No tienes Competiciones</p>)}
+        
       </div>
     </div>
   );
