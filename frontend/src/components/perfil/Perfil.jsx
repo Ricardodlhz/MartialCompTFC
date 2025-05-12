@@ -1,9 +1,18 @@
 import React from 'react'
+import { usePerfil } from '../hooks/usePerfil';
+import { useRols } from '../hooks/useRol';
+const Perfil = () =>  {
+  const {id}=useRols()
+  const {
+    imagePreview,
+    uploading,
+    error,
+    successMessage,
+    handleImageChange,
+  } = usePerfil();
 
-const Perfil = () => {
-   const user = {
-    photo:
-      "https://via.placeholder.com/150", // puedes reemplazarlo por tu URL
+  const user = {
+    id_usuario: 123,
     name: "Juan Pérez",
     email: "juanperez@example.com",
     gym: "Iron Warriors Gym",
@@ -15,9 +24,33 @@ const Perfil = () => {
       <div className="flex flex-col items-center p-6">
         <img
           className="w-32 h-32 rounded-full object-cover border-4 border-indigo-500"
-          src={user.photo}
+          src={
+            imagePreview
+              ? imagePreview
+              : "https://via.placeholder.com/150"
+          }
           alt="Foto de perfil"
         />
+
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => handleImageChange(e, id)}
+          id="imageUpload"
+          className="hidden"
+        />
+        <label
+          htmlFor="imageUpload"
+          className="mt-3 cursor-pointer px-4 py-2 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-700 transition"
+        >
+          {uploading ? "Subiendo..." : "Subir Imagen"}
+        </label>
+
+        {error && <p className="text-red-500 mt-2">{error}</p>}
+        {successMessage && (
+          <p className="text-green-600 mt-2">{successMessage}</p>
+        )}
+
         <h2 className="mt-4 text-2xl font-bold text-gray-800">{user.name}</h2>
         <p className="text-gray-500">{user.email}</p>
         <p className="mt-2 text-gray-600 font-medium">
@@ -33,6 +66,6 @@ const Perfil = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Perfil

@@ -63,6 +63,7 @@ export default function useCrearEventos() {
         formData.append("imagen", eventImage);
         formData.append("id_evento", id_evento); // usa el id recibido
         console.log("id_evento"+id_evento)
+        console.log(eventImage)
         const imagenResponse = await fetch("http://localhost:5001/api/imagenesevento", {
           method: "POST",
           // body: JSON.stringify({
