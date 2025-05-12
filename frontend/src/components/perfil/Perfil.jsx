@@ -24,11 +24,7 @@ const Perfil = () =>  {
       <div className="flex flex-col items-center p-6">
         <img
           className="w-32 h-32 rounded-full object-cover border-4 border-indigo-500"
-          src={
-            imagePreview
-              ? imagePreview
-              : "https://via.placeholder.com/150"
-          }
+         src={`http://localhost:5001/api/imagenes/usuario/${id}`}
           alt="Foto de perfil"
         />
 

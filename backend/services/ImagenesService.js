@@ -10,7 +10,7 @@ const getImagenes = async () => {
 
 //Elegir la imagen dada por el id de usuario
 const getImagenById = async (id) => {
-    const imagen = await Imagen.findAll({
+    const imagen = await Imagen.findOne({
         where: { id_usuario: id }
     })
 
