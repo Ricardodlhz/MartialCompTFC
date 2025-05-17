@@ -1,8 +1,10 @@
 import React from 'react'
 import { usePerfil } from '../hooks/usePerfil';
 import { useRols } from '../hooks/useRol';
-const Perfil = () =>  {
-  const {id,email}=useRols()
+import PdfButton from '../info/PdfButton';
+// import {PdfButton} from './../info/PdfButton.jsx'
+const Perfil = () => {
+  const { id, email } = useRols()
   const {
     imagePreview,
     uploading,
@@ -12,14 +14,14 @@ const Perfil = () =>  {
     user,
   } = usePerfil(email);
 
-  
+
 
   return (
     <div className="max-w-sm mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
       <div className="flex flex-col items-center p-6">
         <img
           className="w-32 h-32 rounded-full object-cover border-4 border-indigo-500"
-         src={`http://localhost:5001/api/imagenes/usuario/${id}`}
+          src={`http://localhost:5001/api/imagenes/usuario/${id}`}
           alt="Foto de perfil"
         />
 
@@ -53,9 +55,38 @@ const Perfil = () =>  {
         <h3 className="text-lg font-semibold text-indigo-700">
           Competición Apuntada
         </h3>
-       
-        {user.competition.length>0?(user.competition.map((evento)=><p>{evento.nombre_evento}</p>)):(<p>No tienes Competiciones</p>)}
-        
+
+        <div className="space-y-4">
+          {user.competition.length > 0 ? (
+            user.competition.map((evento, index) => (
+              <div
+                key={index}
+                className="flex items-center bg-white rounded-lg shadow-md p-4 space-x-4"
+              >
+                <img
+                  src={`http://localhost:5001/api/imagenesevento/usuario/${evento.id}`}
+                  alt={evento.nombre_evento}
+                  className="w-24 h-24 object-cover rounded-md"
+                />
+                <div>
+                  <p className="text-lg font-semibold">{evento.nombre_evento}</p>
+                  <p className="text-gray-600">{evento.fecha_evento.slice(0, 10)}</p>
+                  <PdfButton
+                    nombreEvento="ReactConf 2025"
+                    fecha="2025-06-10"
+                    localizacion="Buenos Aires, Argentina"
+                  />
+
+                </div>
+              </div>
+            ))
+          ) : (
+            <p className="text-gray-500">No tienes Competiciones</p>
+          )}
+        </div>
+
+
+
       </div>
     </div>
   );
