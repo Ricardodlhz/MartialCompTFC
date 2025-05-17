@@ -6,7 +6,7 @@ const Login = () => {
     const { handdleInputs, handleSubmit, form, setForm, errors } = useLogin();
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <div className="flex items-center justify-center min-h-screen ">
             <form 
                 noValidate 
                 onSubmit={handleSubmit}
@@ -57,17 +57,17 @@ const Login = () => {
 
                 {/* Enlaces y botones */}
                 <div className="flex justify-between items-center text-sm mb-4">
-                    <Link to="/info/reset" className="text-blue-500 hover:underline">
+                    <Link to="/info/reset" className="text-black hover:underline">
                         ¿Has olvidado tu contraseña?
                     </Link>
-                    <Link to="/info/registrarse" className="text-blue-500 hover:underline">
+                    <Link to="/info/registrarse" className="text-black hover:underline">
                         Registrarme
                     </Link>
                 </div>
 
                 <button
                     type="submit"
-                    className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors"
+                    className="w-full bg-gray-600 text-white py-2 rounded-md hover:bg-gray-700 hover:cursor-pointer transition-colors"
                 >
                     Iniciar Sesión
                 </button>

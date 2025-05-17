@@ -26,6 +26,7 @@ export const useResetPassword = () => {
     setLoading(true);
     setError(null);
     setSuccess(false);
+    console.log("EL ID :"+id)
     peticionID(userEmail)
     try {
 

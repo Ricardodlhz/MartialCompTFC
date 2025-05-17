@@ -21,7 +21,7 @@ const Eventos = () => {
             className="w-full h-48 object-cover rounded-xl mb-4"
           />
           <h3 className="text-lg font-bold text-gray-800 mb-2 text-center">{dato.nombre_evento}</h3>
-          <p className="text-gray-600 text-sm mb-1">{dato.fecha_evento}</p>
+          <p className="text-gray-600 text-sm mb-1">{dato.fecha_evento.slice(0, 10)}</p>
           {rol === "Admin" && (
 
               <button onClick={()=>Submitborrar(dato.id,dato.nombre_evento)} className='bg-[#d1d1d1] hover:bg-[#e7e7e7] hover:cursor-pointer mt-5 rounded-lg p-2 mr-5'>

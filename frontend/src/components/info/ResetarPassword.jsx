@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useResetPassword } from "../hooks/useResetPassword";
 const ResetarPassword = () => {
   const [email, setEmail] = useState("");
-  const { loading, error, success, resetPassword,passwordCambiada } = useResetPassword();
+  const { loading, error, success, resetPassword, passwordCambiada } = useResetPassword();
 
   const handleResetClick = () => {
     if (email) {
@@ -17,13 +17,14 @@ const ResetarPassword = () => {
         placeholder="Introduce tu email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        className="border px-3 py-2 rounded w-full mb-2"
+        className="border px-3 py-2 rounded w-full mb-2 border-white text-white"
       />
+
 
       <button
         onClick={handleResetClick}
         disabled={loading || !email}
-        className="bg-blue-600 text-white px-4 py-2 rounded w-full"
+        className="bg-gray-600 text-white px-4 py-2 rounded w-full hover:bg-gray-700 hover:cursor-pointer transition"
       >
         {loading ? "Procesando..." : "He olvidado mi contraseña"}
       </button>

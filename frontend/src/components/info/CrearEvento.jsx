@@ -69,7 +69,7 @@ const CrearEvento = () => {
 
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded-xl hover:bg-blue-600 transition"
+          className="w-full bg-gray-500 text-white py-2 px-4 rounded-xl hover:bg-gray-600 hover:cursor-pointer transition"
         >
           Crear Evento
         </button>

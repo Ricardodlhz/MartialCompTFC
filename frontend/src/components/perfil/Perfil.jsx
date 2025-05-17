@@ -4,7 +4,7 @@ import { useRols } from '../hooks/useRol';
 import PdfButton from '../info/PdfButton';
 // import {PdfButton} from './../info/PdfButton.jsx'
 const Perfil = () => {
-  const { id, email } = useRols()
+  const { id, email, rol } = useRols()
   const {
     imagePreview,
     uploading,
@@ -51,12 +51,15 @@ const Perfil = () => {
           <span className="text-indigo-600 font-semibold">{user.gym}</span>
         </p>
       </div>
-      <div className="bg-indigo-50 p-4 text-center">
-        <h3 className="text-lg font-semibold text-indigo-700">
-          Competición Apuntada
-        </h3>
 
-        <div className="space-y-4">
+
+        {rol === "Competidor" && (
+      <div className="bg-indigo-50 p-4 text-center">
+          
+          <div className="space-y-4">
+          <h3 className="text-lg font-semibold text-indigo-700">
+            Competición Apuntada
+          </h3>
           {user.competition.length > 0 ? (
             user.competition.map((evento, index) => (
               <div
@@ -84,10 +87,11 @@ const Perfil = () => {
             <p className="text-gray-500">No tienes Competiciones</p>
           )}
         </div>
+        </div>)}
 
 
 
-      </div>
+      
     </div>
   );
 };
