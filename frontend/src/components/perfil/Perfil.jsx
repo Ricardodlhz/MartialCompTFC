@@ -75,9 +75,11 @@ const Perfil = () => {
                   <p className="text-lg font-semibold">{evento.nombre_evento}</p>
                   <p className="text-gray-600">{evento.fecha_evento.slice(0, 10)}</p>
                   <PdfButton
-                    nombreEvento="ReactConf 2025"
-                    fecha="2025-06-10"
-                    localizacion="Buenos Aires, Argentina"
+                    nombreEvento={evento.nombre_evento}
+                    fecha={evento.fecha_evento.slice(0, 10)}
+                    localizacion="Madrid, España"
+                    nombreUser={user.name}
+                    apellidos={user.apellido}
                   />
 
                 </div>

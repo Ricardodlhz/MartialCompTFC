@@ -6,21 +6,24 @@ export const usePerfil = (email) => {
     const [error, setError] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
     const [nombre, setNombre] = useState([])
+     const [Apellido, setApellido] = useState([])
     const [gym, setGym] = useState([])
     const [competicion, setCompeticion] = useState([])
     const user = {
         id_usuario: "",
         name: nombre,
+        apellido:Apellido,
         email: email,
         gym: gym,
         competition: competicion,
     };
-    useEffect(() => { cargarDatos() }, [email])
+    useEffect(() => { cargarDatos() }, [imagePreview])
 
     const cargarDatos = async () => {
         const api = await fetch("http://localhost:5001/api/usuario/" + user.email)
         const data = await api.json()
         setNombre(data.nombre)
+        setApellido(data.apellido)
         recogerNombreGym(data.id_academia)
         competicionesApuntado(data.id)
         return data
