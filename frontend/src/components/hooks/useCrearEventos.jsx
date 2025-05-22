@@ -8,7 +8,7 @@ export default function useCrearEventos() {
   const [selectedSport, setSelectedSport] = useState("");
   const fetchSports = async () => {
     try {
-      const api = await fetch("http://localhost:5001/api/deportes")
+      const api = await fetch("http://localhost:5004/api/deportes")
       const data = await api.json()
       setSports(data);
 
@@ -36,7 +36,7 @@ export default function useCrearEventos() {
 
     try {
       // 1️⃣ POST evento (sin imagen)
-      const eventoResponse = await fetch("http://localhost:5001/api/eventos", {
+      const eventoResponse = await fetch("http://localhost:5004/api/eventos", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -64,7 +64,7 @@ export default function useCrearEventos() {
         formData.append("id_evento", id_evento); // usa el id recibido
         console.log("id_evento"+id_evento)
         console.log(eventImage)
-        const imagenResponse = await fetch("http://localhost:5001/api/imagenesevento", {
+        const imagenResponse = await fetch("http://localhost:5004/api/imagenesevento", {
           method: "POST",
           // body: JSON.stringify({
           //   imagen: eventImage,

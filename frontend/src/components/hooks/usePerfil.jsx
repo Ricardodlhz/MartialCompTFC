@@ -6,40 +6,69 @@ export const usePerfil = (email) => {
     const [error, setError] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
     const [nombre, setNombre] = useState([])
-     const [Apellido, setApellido] = useState([])
+    const [Apellido, setApellido] = useState([])
     const [gym, setGym] = useState([])
     const [competicion, setCompeticion] = useState([])
+    const [imageError, setImageError] = useState(false);
+    const [idUsuario, setIdUsuario] = useState(null);
+
     const user = {
-        id_usuario: "",
+        id_usuario: idUsuario,
         name: nombre,
-        apellido:Apellido,
+        apellido: Apellido,
         email: email,
         gym: gym,
         competition: competicion,
     };
+    useEffect(() => {
+        if (error || successMessage) {
+            const timer = setTimeout(() => {
+                setError(null)
+                setSuccessMessage(null)
+            }, 2000)
+
+            return () => clearTimeout(timer)
+        }
+    }, [error, successMessage])
+
     useEffect(() => { cargarDatos() }, [imagePreview])
 
     const cargarDatos = async () => {
-        const api = await fetch("http://localhost:5001/api/usuario/" + user.email)
+
+        const api = await fetch("http://localhost:5004/api/usuario/" + user.email)
         const data = await api.json()
         setNombre(data.nombre)
         setApellido(data.apellido)
         recogerNombreGym(data.id_academia)
         competicionesApuntado(data.id)
+        setIdUsuario(data.id);
+        comprobarImagen(data.id)
         return data
     }
-    const recogerNombreGym=async(id_academia)=>{
-        const api=await fetch("http://localhost:5001/api/gimnasios/"+id_academia)
+    const recogerNombreGym = async (id_academia) => {
+        const api = await fetch("http://localhost:5004/api/gimnasios/" + id_academia)
         const data = await api.json()
         setGym(data.nombre_gimnasio)
         return data
     }
+    const comprobarImagen = async (idUsuario) => {
+        try {
+            const response = await fetch(`http://localhost:5004/api/imagenes/usuario/${idUsuario}`)
+            if (response.ok) {
+                setImageError(true)
+            } else {
+                setImageError(false)
+            }
+        } catch (error) {
+            setHasImage(false)
+        }
+    }
 
-    const competicionesApuntado=async(idUsuario)=>{
-        
-        const api=await fetch("http://localhost:5001/api/usuarioregistradoevento/"+idUsuario)
+    const competicionesApuntado = async (idUsuario) => {
+
+        const api = await fetch("http://localhost:5004/api/usuarioregistradoevento/" + idUsuario)
         const data = await api.json()
-        
+
         setCompeticion(data.eventos)
         return data
     }
@@ -63,7 +92,7 @@ export const usePerfil = (email) => {
             setSuccessMessage(null);
 
             const response = await fetch(
-                "http://localhost:5001/api/imagenes", // Cambia a tu endpoint real
+                "http://localhost:5004/api/imagenes", // Cambia a tu endpoint real
                 {
                     method: "POST",
                     body: formData,
@@ -76,8 +105,9 @@ export const usePerfil = (email) => {
 
             const data = await response.json();
 
-            setSuccessMessage("Imagen subida correctamente 🎉");
+            setSuccessMessage("Imagen subida correctamente ");
             console.log("Respuesta del servidor:", data);
+
         } catch (err) {
             setError("Hubo un error al subir la imagen.");
             console.error(err);
@@ -87,11 +117,12 @@ export const usePerfil = (email) => {
     };
 
     const borrarImagen = async (idUsuario) => {
-        const api = await fetch("http://localhost:5001/api/imagenes")
+        const api = await fetch("http://localhost:5004/api/imagenes")
         const data = await api.json()
         let id = data.find(dato => dato.id_usuario == idUsuario)
+        console.log(idUsuario)
         if (data) {
-            const borrarApi = await fetch("http://localhost:5001/api/imagenes/" + id.id, {
+            const borrarApi = await fetch("http://localhost:5004/api/imagenes/" + id.id, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -100,7 +131,8 @@ export const usePerfil = (email) => {
             })
 
             if (borrarApi.ok) {
-                location.reload()
+
+                // location.reload()
                 console.log("BORRADO")
             }
         }
@@ -112,6 +144,8 @@ export const usePerfil = (email) => {
         error,
         successMessage,
         handleImageChange,
-        user
+        user,
+        setImageError,
+        imageError
     };
 };

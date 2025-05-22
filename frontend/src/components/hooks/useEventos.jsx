@@ -5,7 +5,7 @@ export const useEventos = () => {
   const [datos, setDatos] = useState([])
 
   const peticionApiDatosEvento = async () => {
-    const api = await fetch("http://localhost:5001/api/eventos")
+    const api = await fetch("http://localhost:5004/api/eventos")
     const data = await api.json()
     setDatos(data)
     console.log(data)
@@ -18,7 +18,7 @@ export const useEventos = () => {
     borrarEvento(id, nombre)
   }
   const borrarEvento = async (id, nombre) => {
-    const respuesta = await fetch(`http://localhost:5001/api/eventos/${id}`, {
+    const respuesta = await fetch(`http://localhost:5004/api/eventos/${id}`, {
       method: 'DELETE'
     })
 
@@ -37,12 +37,12 @@ export const useEventos = () => {
   }
 
   const registrarseEvento = async (email, id_evento) => {
-    const response = await fetch(`http://localhost:5001/api/usuario/${email}`);
+    const response = await fetch(`http://localhost:5004/api/usuario/${email}`);
     const data = await response.json();
     console.log(data.id)
 
     //hago el post 
-    const postApi = await fetch("http://localhost:5001/api/usuarioregistradoevento", {
+    const postApi = await fetch("http://localhost:5004/api/usuarioregistradoevento", {
       method: 'POST',
       headers: {
         "Content-Type": "application/json"

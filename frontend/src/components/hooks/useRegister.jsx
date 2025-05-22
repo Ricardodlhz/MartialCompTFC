@@ -41,7 +41,7 @@ export const useRegister = () => {
 
     const peticionApiGimnasio = async () => {
         try {
-            const api = await fetch("http://localhost:5001/api/gimnasios")
+            const api = await fetch("http://localhost:5004/api/gimnasios")
             const data = await api.json()
             console.log(data)
             setGim(data)
@@ -66,7 +66,7 @@ export const useRegister = () => {
         }
 
         try {
-            const post = await fetch("http://localhost:5001/api/usuario", {
+            const post = await fetch("http://localhost:5004/api/usuario", {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",

@@ -13,7 +13,7 @@ export const useFederacion = () => {
 
 
     const peticionApiDeportes = async () => {
-        const api = await fetch("http://localhost:5001/api/deportes")
+        const api = await fetch("http://localhost:5004/api/deportes")
         const data = await api.json()
         console.log(data)
         setDeportes(data)
@@ -28,8 +28,8 @@ export const useFederacion = () => {
 
     try {
       // 1️⃣ Obtener ID del deporte por nombre
-      const resDeportes = await fetch('http://localhost:5001/api/deportes')
-      const apiIdUser=await fetch("http://localhost:5001/api/usuario/"+email)
+      const resDeportes = await fetch('http://localhost:5004/api/deportes')
+      const apiIdUser=await fetch("http://localhost:5004/api/usuario/"+email)
       const dataUser=await apiIdUser.json()
       
       if (!resDeportes.ok) throw new Error('Error al obtener los deportes')
@@ -45,7 +45,7 @@ export const useFederacion = () => {
       }
 
       // 2️⃣ Enviar POST con email e id_deporte
-      const resFederacion = await fetch('http://localhost:5001/api/federados', {
+      const resFederacion = await fetch('http://localhost:5004/api/federados', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

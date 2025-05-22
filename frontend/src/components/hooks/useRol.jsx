@@ -7,7 +7,7 @@ export const useRols = () => {
 
   const peticionApiEmail = async () => {
     try {
-      const response = await fetch(`http://localhost:5001/api/usuario/${email}`);
+      const response = await fetch(`http://localhost:5004/api/usuario/${email}`);
       const data = await response.json();
       setRol(data.rol); // ← aquí actualizas el state
       setId(data.id)

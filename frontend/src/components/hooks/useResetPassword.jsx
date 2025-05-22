@@ -17,7 +17,7 @@ export const useResetPassword = () => {
   };
 
   const peticionID = async (email) => {
-    const api = await fetch(`http://localhost:5001/api/usuario/${email}`);
+    const api = await fetch(`http://localhost:5004/api/usuario/${email}`);
     const idApi = await api.json();
     console.log("MAIL: "+email)
     setID(idApi.id)
@@ -33,7 +33,7 @@ export const useResetPassword = () => {
       const generatedPassword = generateRandomPassword();
      
       // Llamada a la API que resetea la contraseña y envía el correo
-      const response = await fetch("http://localhost:5001/api/usuario/resetpass/" + id, {
+      const response = await fetch("http://localhost:5004/api/usuario/resetpass/" + id, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

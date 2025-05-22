@@ -2,6 +2,7 @@ import React from 'react'
 import { usePerfil } from '../hooks/usePerfil';
 import { useRols } from '../hooks/useRol';
 import PdfButton from '../info/PdfButton';
+import defaultProfiel from './../../assets/perfil/PerfilVacio.jpeg'
 // import {PdfButton} from './../info/PdfButton.jsx'
 const Perfil = () => {
   const { id, email, rol } = useRols()
@@ -12,23 +13,29 @@ const Perfil = () => {
     successMessage,
     handleImageChange,
     user,
+    imageError
   } = usePerfil(email);
-
+  
 
 
   return (
     <div className="max-w-sm mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
       <div className="flex flex-col items-center p-6">
-        <img
+         <img
           className="w-32 h-32 rounded-full object-cover border-4 border-indigo-500"
-          src={`http://localhost:5001/api/imagenes/usuario/${id}`}
+          src={
+            imageError
+            ? `http://localhost:5004/api/imagenes/usuario/${user.id_usuario}`
+              : defaultProfiel
+          }
           alt="Foto de perfil"
+          
         />
 
         <input
           type="file"
           accept="image/*"
-          onChange={(e) => handleImageChange(e, id)}
+          onChange={(e) => handleImageChange(e, user.id_usuario)}
           id="imageUpload"
           className="hidden"
         />
