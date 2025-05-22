@@ -16,7 +16,7 @@ const Eventos = () => {
           className="bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col items-center p-4 transition hover:scale-[1.02] hover:shadow-xl"
         >
           <img
-            src={`http://localhost:5001/api/imagenesevento/usuario/${dato.id}`}
+            src={`http://localhost:5004/api/imagenesevento/usuario/${dato.id}`}
             alt={dato.nombre_evento}
             className="w-full h-48 object-cover rounded-xl mb-4"
           />
