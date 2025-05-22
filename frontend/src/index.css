@@ -35,3 +35,14 @@
   animation: scroll 5s alternate-reverse infinite;
   gap: 30px;
 }
+
+.layout-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content {
+    flex: 1;
+}
+
