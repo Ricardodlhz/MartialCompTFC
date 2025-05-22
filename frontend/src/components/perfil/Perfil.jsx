@@ -13,38 +13,50 @@ const Perfil = () => {
     successMessage,
     handleImageChange,
     user,
-    imageError
+    imageError,
+    borrarImagen
   } = usePerfil(email);
-  
+
 
 
   return (
     <div className="max-w-sm mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
       <div className="flex flex-col items-center p-6">
-         <img
+        <img
           className="w-32 h-32 rounded-full object-cover border-4 border-indigo-500"
           src={
             imageError
-            ? `http://localhost:5004/api/imagenes/usuario/${user.id_usuario}`
+              ? `http://localhost:5004/api/imagenes/usuario/${user.id_usuario}`
               : defaultProfiel
           }
           alt="Foto de perfil"
-          
+
         />
 
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => handleImageChange(e, user.id_usuario)}
-          id="imageUpload"
-          className="hidden"
-        />
-        <label
-          htmlFor="imageUpload"
-          className="mt-3 cursor-pointer px-4 py-2 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-700 transition"
-        >
-          {uploading ? "Subiendo..." : "Subir Imagen"}
-        </label>
+       <div className="flex space-x-2 mt-3">
+
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => handleImageChange(e, user.id_usuario)}
+            id="imageUpload"
+            className="hidden"
+          />
+          <label
+            htmlFor="imageUpload"
+            className="mt-3 cursor-pointer px-4 py-2 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-700 transition"
+          >
+            {uploading ? "Subiendo..." : "Subir Imagen"}
+          </label>
+
+
+          <button
+            onClick={() => borrarImagen(id)}
+            className="mt-3 cursor-pointer px-4 py-2 bg-red-600 text-white text-sm rounded-lg hover:bg-red-700 transition"
+          >
+            Borrar Imagen
+          </button>
+        </div>
 
         {error && <p className="text-red-500 mt-2">{error}</p>}
         {successMessage && (
@@ -60,47 +72,47 @@ const Perfil = () => {
       </div>
 
 
-        {rol === "Competidor" && (
-      <div className="bg-indigo-50 p-4 text-center">
-          
-          <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-indigo-700">
-            Competición Apuntada
-          </h3>
-          {user.competition.length > 0 ? (
-            user.competition.map((evento, index) => (
-              <div
-                key={index}
-                className="flex items-center bg-white rounded-lg shadow-md p-4 space-x-4"
-              >
-                <img
-                  src={`http://localhost:5001/api/imagenesevento/usuario/${evento.id}`}
-                  alt={evento.nombre_evento}
-                  className="w-24 h-24 object-cover rounded-md"
-                />
-                <div>
-                  <p className="text-lg font-semibold">{evento.nombre_evento}</p>
-                  <p className="text-gray-600">{evento.fecha_evento.slice(0, 10)}</p>
-                  <PdfButton
-                    nombreEvento={evento.nombre_evento}
-                    fecha={evento.fecha_evento.slice(0, 10)}
-                    localizacion="Madrid, España"
-                    nombreUser={user.name}
-                    apellidos={user.apellido}
-                  />
+      {rol === "Competidor" && (
+        <div className="bg-indigo-50 p-4 text-center">
 
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-indigo-700">
+              Competición Apuntada
+            </h3>
+            {user.competition.length > 0 ? (
+              user.competition.map((evento, index) => (
+                <div
+                  key={index}
+                  className="flex items-center bg-white rounded-lg shadow-md p-4 space-x-4"
+                >
+                  <img
+                    src={`http://localhost:5001/api/imagenesevento/usuario/${evento.id}`}
+                    alt={evento.nombre_evento}
+                    className="w-24 h-24 object-cover rounded-md"
+                  />
+                  <div>
+                    <p className="text-lg font-semibold">{evento.nombre_evento}</p>
+                    <p className="text-gray-600">{evento.fecha_evento.slice(0, 10)}</p>
+                    <PdfButton
+                      nombreEvento={evento.nombre_evento}
+                      fecha={evento.fecha_evento.slice(0, 10)}
+                      localizacion="Madrid, España"
+                      nombreUser={user.name}
+                      apellidos={user.apellido}
+                    />
+
+                  </div>
                 </div>
-              </div>
-            ))
-          ) : (
-            <p className="text-gray-500">No tienes Competiciones</p>
-          )}
-        </div>
+              ))
+            ) : (
+              <p className="text-gray-500">No tienes Competiciones</p>
+            )}
+          </div>
         </div>)}
 
 
 
-      
+
     </div>
   );
 };

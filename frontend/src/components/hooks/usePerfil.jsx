@@ -132,7 +132,7 @@ export const usePerfil = (email) => {
 
             if (borrarApi.ok) {
 
-                // location.reload()
+                 location.reload()
                 console.log("BORRADO")
             }
         }
@@ -146,6 +146,7 @@ export const usePerfil = (email) => {
         handleImageChange,
         user,
         setImageError,
-        imageError
+        imageError,
+        borrarImagen
     };
 };
