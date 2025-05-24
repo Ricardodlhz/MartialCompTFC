@@ -22,12 +22,13 @@ const getEventoById=async(id)=>{
 // Recoger los eventos dado el id del deporte
 const getEventoById_Deporte = async (id_deporte) => {
   try {
-    return await Eventos.findAll({
-  include: [{
-    model: Deporte,
-    where: { id_deporte: id_deporte }
-  }]
-})
+    return await Eventos.findAll({where: { id_deporte: id_deporte }})
+//     return await Eventos.findAll({
+//   include: [{
+//     model: Deporte,
+//     where: { id_deporte: id_deporte }
+//   }]
+// })
   } catch (error) {
     throw new Error("Error al seleccionar los eventos del deporte dado " + error.message);
   }
