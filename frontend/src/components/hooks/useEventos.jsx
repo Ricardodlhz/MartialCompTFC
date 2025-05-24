@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 
 export const useEventos = () => {
   const [datos, setDatos] = useState([])
-
+  const [selectedDeporte, setSelectedDeporte] = useState("")
   const peticionApiDatosEvento = async () => {
     const api = await fetch("http://localhost:5004/api/eventos")
     const data = await api.json()
@@ -56,7 +56,21 @@ export const useEventos = () => {
     const dataPost=await postApi.json()
   }
 
-  //Funcionar para comprobar si está o no ya registrado
+   const peticionEventosPorDeporte = async (id_deporte) => {
+    const res = await fetch(`http://localhost:5004/api/eventos/evento_deporte/${id_deporte}`)
+    const data = await res.json()
+    setDatos(data)
+  }
+  //Para cargar eventos de un determinado deporte
+   const handleDeporteChange = (e) => {
+    const idDeporte = e.target.value
+    setSelectedDeporte(idDeporte)
+    if (idDeporte !== "") {
+      peticionEventosPorDeporte(idDeporte)
+    }else{
+      peticionApiDatosEvento()
+    }
+  }
 
-  return { datos, Submitborrar, registrarseEvento, submitRegistrarse }
+  return { datos, Submitborrar, registrarseEvento, submitRegistrarse,handleDeporteChange,selectedDeporte }
 }

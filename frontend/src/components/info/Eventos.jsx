@@ -2,12 +2,30 @@ import React from 'react'
 import { useEffect,useState } from 'react'
 import {useEventos} from './../hooks/useEventos'
 import { useRols } from '../hooks/useRol'
-
+import useCrearEventos from './../hooks/useCrearEventos'
 const Eventos = () => {
   //Recojo el rol, y en caso de ser un administrador puede borrar el evento
   const {rol,email}=useRols()
-  const {datos,Submitborrar,registrarseEvento,submitRegistrarse}=useEventos()
+  const {datos,Submitborrar,selectedDeporte,submitRegistrarse,handleDeporteChange}=useEventos()
+  const {sports}=useCrearEventos()
+
   return (
+
+
+     <div className='p-4'>
+      <div className="mb-6">
+        <label className="block mb-2 text-gray-700 font-semibold">Filtrar por deporte:</label>
+        <select
+          value={selectedDeporte}
+          onChange={handleDeporteChange}
+          className="border rounded-lg p-2 w-full max-w-xs"
+        >
+          <option value="">Todos los deportes</option>
+          {sports.map((deporte) => (
+            <option key={deporte.id} value={deporte.id}>{deporte.nombre_deporte}</option>
+          ))}
+        </select>
+      </div>
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
     {datos.length > 0 ? (
       datos.map((dato, idx) => (
@@ -44,6 +62,7 @@ const Eventos = () => {
     )}
   </div>
   
+     </div>
   )
 }
 
