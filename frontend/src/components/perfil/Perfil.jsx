@@ -86,7 +86,7 @@ const Perfil = () => {
                   className="flex items-center bg-white rounded-lg shadow-md p-4 space-x-4"
                 >
                   <img
-                    src={`http://localhost:5001/api/imagenesevento/usuario/${evento.id}`}
+                    src={`http://localhost:5004/api/imagenesevento/usuario/${evento.id}`}
                     alt={evento.nombre_evento}
                     className="w-24 h-24 object-cover rounded-md"
                   />
