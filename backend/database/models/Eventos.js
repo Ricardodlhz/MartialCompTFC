@@ -39,14 +39,18 @@ Eventos.init(
                 },
             },
         },
+        id_deporte: {      // <-- Esto faltaba
+            type: DataTypes.INTEGER,
+            allowNull: false
+        }
 
     }, {
-        sequelize,
-        modelName: 'Eventos',
-        tableName: 'eventos',
-        timestamps: false,
-        underscored: false,
-    }
+    sequelize,
+    modelName: 'Eventos',
+    tableName: 'eventos',
+    timestamps: false,
+    underscored: false,
+}
 
 )
 

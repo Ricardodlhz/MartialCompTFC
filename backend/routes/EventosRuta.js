@@ -5,11 +5,13 @@ const router = express.Router()
 const eventController = require('./../controllers/EventosController') 
 
 // GET /eventos - Obtener todos los eventos
-router.get('/', eventController.getEventos)
+ router.get('/', eventController.getEventos)
 
 // GET /eventos/:id - Obtener evento por ID
 router.get('/:id', eventController.getEventById)
 
+//GET /eventos/id_deporte
+router.get("/:id_deporte",eventController.getEventoById_Deporte)
 //POST 
 router.post("/",eventController.crearEvento)
 

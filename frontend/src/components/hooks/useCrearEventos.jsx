@@ -44,7 +44,7 @@ export default function useCrearEventos() {
         body: JSON.stringify({
           nombre_evento: eventName,
           fecha_evento: eventDate,
-          deporte_id: selectedSport,
+          id_deporte: selectedSport,
         }),
 
 

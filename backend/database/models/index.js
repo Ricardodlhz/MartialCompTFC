@@ -18,11 +18,11 @@ Gimnasios.hasOne(Usuarios,{foreignKey:'id_academia'})
 Usuarios.hasMany(Imagenes,{foreignKey:'id_usuario'})
 
 
-//Relaciones de Deportes
-Deportes.hasOne(Eventos,{foreignKey:'deporte_id'})
+// Evento.js
+Eventos.belongsTo(Deportes, { foreignKey: 'id_deporte' });
 
-//Relaciones Evento
-Eventos.belongsTo(Deportes,{foreignKey:'deporte_id'})
+// Deporte.js
+Deportes.hasMany(Eventos, { foreignKey: 'id_deporte' });
 Eventos.hasOne(ImagenesEventos,{foreignKey:'id_evento'})
 //Usuarios_registrado_evento
 Usuarios.belongsToMany(Eventos,{through:'Usuarios_registrado_evento',foreignKey:'id_usuario'})

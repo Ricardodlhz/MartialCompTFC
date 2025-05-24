@@ -25,6 +25,21 @@ const getEventById=async(req,res)=>{
     }
 }
 
+//Recgoer los eventos dado un deporte
+const getEventoById_Deporte = async (req, res) => {
+  try {
+     console.log("ID deporte recibido:", req.params.id_deporte)
+    const eventos = await eventService.getEventoById_Deporte(req.params.id_deporte)
+
+    if (eventos && eventos.length > 0) {
+      res.status(200).json(eventos)
+    } else {
+      res.status(404).json({ message: "Eventos no encontrados" })
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+}
 
 //Modificar el evento dado por id
 const actualizarEvento=async(req,res)=>{
@@ -68,7 +83,7 @@ const crearEvento = async (req, res) => {
         const nuevoEvento = await eventService.crearEvento({
             nombre_evento: req.body.nombre_evento,
             fecha_evento: req.body.fecha_evento,
-            deporte_id: req.body.deporte_id
+            id_deporte: req.body.id_deporte
         })
         res.status(201).json(nuevoEvento)
     } catch (error) {
@@ -78,6 +93,7 @@ const crearEvento = async (req, res) => {
 module.exports={
     getEventos,
     getEventById,
+    getEventoById_Deporte,
     actualizarEvento,
     borrarEvento,
     crearEvento
