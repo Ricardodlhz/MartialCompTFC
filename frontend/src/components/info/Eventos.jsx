@@ -13,19 +13,35 @@ const Eventos = () => {
 
 
      <div className='p-4'>
-      <div className="mb-6">
-        <label className="block mb-2 text-gray-700 font-semibold">Filtrar por deporte:</label>
-        <select
-          value={selectedDeporte}
-          onChange={handleDeporteChange}
-          className="border rounded-lg p-2 w-full max-w-xs"
+       <div className="mb-6">
+    <label className="block text-lg font-semibold text-gray-200 mb-3">
+      Filtrar por deporte:
+    </label>
+    <div className="relative w-full max-w-xs">
+      <select
+        value={selectedDeporte}
+        onChange={handleDeporteChange}
+        className="appearance-none bg-[#2e2e35] border border-gray-600 text-gray-200 rounded-lg p-3 pr-10 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+      >
+        <option value="">Todos los deportes</option>
+        {sports.map((deporte) => (
+          <option key={deporte.id} value={deporte.id}>
+            {deporte.nombre_deporte}
+          </option>
+        ))}
+      </select>
+      <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+        <svg
+          className="w-5 h-5 text-gray-400"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
         >
-          <option value="">Todos los deportes</option>
-          {sports.map((deporte) => (
-            <option key={deporte.id} value={deporte.id}>{deporte.nombre_deporte}</option>
-          ))}
-        </select>
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+        </svg>
       </div>
+    </div>
+  </div>
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
     {datos.length > 0 ? (
       datos.map((dato, idx) => (
