@@ -8,7 +8,7 @@ const eventController = require('./../controllers/EventosController')
  router.get('/', eventController.getEventos)
 
 // // GET /eventos/:id - Obtener evento por ID
-// router.get('/:id', eventController.getEventById)
+router.get('/:id', eventController.getEventById)
 
 //GET /eventos/id_deporte
 router.get("/evento_deporte/:id_deporte",eventController.getEventoById_Deporte)

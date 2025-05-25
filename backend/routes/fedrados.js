@@ -24,5 +24,34 @@ router.post('/', async (req, res) => {
     res.status(500).json({ message: 'Error al federar usuario al deporte' });
   }
 });
+// GET /federarUsuario/:id_usuario
+router.get('/:id_usuario', async (req, res) => {
+  const { id_usuario } = req.params;
+
+  try {
+    // Buscar usuario por id
+    const usuario = await Usuarios.findByPk(id_usuario, {
+      include: {
+        model: Deportes,
+        through: { attributes: [] } // evita traer los campos de la tabla intermedia
+      }
+    });
+
+    if (!usuario) {
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+
+    // Responder con los deportes federados del usuario
+    res.status(200).json({
+      usuario: usuario.id, 
+      nombre: usuario.nombre, 
+      deportesFederados: usuario.Deportes
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al obtener los deportes federados del usuario' });
+  }
+});
 
 module.exports = router;
