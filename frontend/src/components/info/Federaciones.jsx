@@ -58,7 +58,7 @@ const Federaciones = () => {
       </button>
 
       {error && <p className="text-red-500 text-center">{error}</p>}
-      {response && <p className="text-green-600 text-center">Federado correctamente 🎉</p>}
+      {/* {response && <p className="text-green-600 text-center">Federado correctamente 🎉</p>} */}
     </form>
   )
 }

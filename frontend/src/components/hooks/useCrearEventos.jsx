@@ -49,20 +49,20 @@ export default function useCrearEventos() {
 
 
       });
-      console.log("IMAGEN: "+eventImage.type) 
+      console.log("IMAGEN: " + eventImage.type)
       if (!eventoResponse.ok) throw new Error("Error creando evento");
 
       const eventoData = await eventoResponse.json();
       console.log("Evento creado:", eventoData);
       console.log("id deporte: " + eventoData.id)
-           
+
       // 2️⃣ POST imagen (si hay imagen)
       if (eventImage) {
-        let id_evento=eventoData.id
+        let id_evento = eventoData.id
         const formData = new FormData();
         formData.append("imagen", eventImage);
         formData.append("id_evento", id_evento); // usa el id recibido
-        console.log("id_evento"+id_evento)
+        console.log("id_evento" + id_evento)
         console.log(eventImage)
         const imagenResponse = await fetch("http://localhost:5004/api/imagenesevento", {
           method: "POST",
@@ -70,10 +70,10 @@ export default function useCrearEventos() {
           //   imagen: eventImage,
           //   id_evento: eventoData.id
           // }),
-          body:formData,
-         
+          body: formData,
+
         });
-        
+
         if (!imagenResponse.ok) {
           const errorText = await imagenResponse.text();
           console.error("Respuesta de error:", errorText);
@@ -84,8 +84,12 @@ export default function useCrearEventos() {
         console.log("Imagen subida:", imagenData);
       }
 
-      alert("Evento creado correctamente");
-
+      // alert("Evento creado correctamente");
+      Swal.fire({
+        title: "Evento creado correctamente",
+        icon: "success",
+        draggable: true
+      });
       // Limpiar formulario
       setEventName("");
       setEventDate("");
@@ -94,7 +98,12 @@ export default function useCrearEventos() {
 
     } catch (error) {
       console.error("Error al crear el evento:", error);
-      alert("Hubo un error al crear el evento");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Algo ha fallado, vuelve a intentarlo",
+        // footer: '<a href="#">Why do I have this issue?</a>'
+      });
     }
   };
 

@@ -3,6 +3,7 @@ import { useEffect,useState } from 'react'
 import {useEventos} from './../hooks/useEventos'
 import { useRols } from '../hooks/useRol'
 import useCrearEventos from './../hooks/useCrearEventos'
+
 const Eventos = () => {
   //Recojo el rol, y en caso de ser un administrador puede borrar el evento
   const {rol,email}=useRols()

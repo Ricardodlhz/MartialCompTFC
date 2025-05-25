@@ -1,6 +1,6 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
-
+import Swal from 'sweetalert2'
 export const useEventos = () => {
   const [datos, setDatos] = useState([])
   const [selectedDeporte, setSelectedDeporte] = useState("")
@@ -24,8 +24,15 @@ export const useEventos = () => {
 
     if (respuesta.ok) {
       console.log("borrado")
-      location.reload()
-      alert("Evento " + nombre + " borrado correctamente")
+      Swal.fire({
+        title: "Evento borrado con éxito",
+        icon: "success",
+        draggable: true
+      });
+      setTimeout(() => {
+        location.reload();
+      }, 2000);
+      // alert("Evento " + nombre + " borrado correctamente")
     }
   }
 
@@ -53,24 +60,32 @@ export const useEventos = () => {
       })
     })
 
-    const dataPost=await postApi.json()
+    if (postApi.ok) {
+      
+      Swal.fire({
+        title: "Inscripción realizada éxito",
+        icon: "success",
+        draggable: true
+      });
+    }
+    const dataPost = await postApi.json()
   }
 
-   const peticionEventosPorDeporte = async (id_deporte) => {
+  const peticionEventosPorDeporte = async (id_deporte) => {
     const res = await fetch(`http://localhost:5004/api/eventos/evento_deporte/${id_deporte}`)
     const data = await res.json()
     setDatos(data)
   }
   //Para cargar eventos de un determinado deporte
-   const handleDeporteChange = (e) => {
+  const handleDeporteChange = (e) => {
     const idDeporte = e.target.value
     setSelectedDeporte(idDeporte)
     if (idDeporte !== "") {
       peticionEventosPorDeporte(idDeporte)
-    }else{
+    } else {
       peticionApiDatosEvento()
     }
   }
 
-  return { datos, Submitborrar, registrarseEvento, submitRegistrarse,handleDeporteChange,selectedDeporte }
+  return { datos, Submitborrar, registrarseEvento, submitRegistrarse, handleDeporteChange, selectedDeporte }
 }

@@ -105,11 +105,22 @@ export const usePerfil = (email) => {
 
             const data = await response.json();
 
-            setSuccessMessage("Imagen subida correctamente ");
+            // setSuccessMessage("Imagen subida correctamente ");
+            Swal.fire({
+                title: "Imagen subida con éxito",
+                icon: "success",
+                draggable: true
+            });
             console.log("Respuesta del servidor:", data);
 
         } catch (err) {
-            setError("Hubo un error al subir la imagen.");
+            // setError("Hubo un error al subir la imagen.");
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Algo ha fallado, vuelve a intentarlo",
+                // footer: '<a href="#">Why do I have this issue?</a>'
+            });
             console.error(err);
         } finally {
             setUploading(false);
@@ -132,7 +143,7 @@ export const usePerfil = (email) => {
 
             if (borrarApi.ok) {
 
-                 location.reload()
+                setTimeout(location.reload(),2000)
                 console.log("BORRADO")
             }
         }
