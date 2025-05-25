@@ -41,7 +41,7 @@ const PdfButton = ({ nombreEvento, fecha, localizacion, nombreUser, apellidos })
   return (
     <button
       onClick={generarPDF}
-      className="p-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+      className="p-2 bg-gray-600 text-white py-2 rounded-md hover:bg-gray-700 hover:cursor-pointer transition-colors"
     >
       Descargar PDF
     </button>

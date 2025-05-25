@@ -88,9 +88,9 @@ const Perfil = () => {
                   <img
                     src={`http://localhost:5004/api/imagenesevento/usuario/${evento.id}`}
                     alt={evento.nombre_evento}
-                    className="w-24 h-24 object-cover rounded-md"
+                    className="w-[40%] h-[120px] object-cover rounded-md"
                   />
-                  <div>
+                  <div className='flex flex-col justify-center text-center  w-[60%]'>
                     <p className="text-lg font-semibold">{evento.nombre_evento}</p>
                     <p className="text-gray-600">{evento.fecha_evento.slice(0, 10)}</p>
                     <PdfButton
