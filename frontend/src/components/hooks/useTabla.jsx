@@ -13,7 +13,7 @@ export const useTabla = () => {
         return data
     }
 
-    useEffect(() => { cargarDatos() }, [])
+    useEffect(() => { cargarDatos() }, [usuarios])
 
     const borrarUsuario = async (id) => {
         const api = await fetch(`http://localhost:5004/api/usuario/${id}`, {
@@ -21,7 +21,8 @@ export const useTabla = () => {
         });
 
         const data = await api.json();
-        location.reload()
+       
+        
 
         return data
 

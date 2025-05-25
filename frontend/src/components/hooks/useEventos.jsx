@@ -159,14 +159,15 @@ export const useEventos = () => {
 
       // Si hay imagen nueva seleccionada
       if (formValues.imagen) {
+        console.log(id)
         // Obtener datos de la imagen actual asociada al evento
-        const imagenActualResponse = await fetch(`http://localhost:5004/api/imagenesevento/${id}`);
+        const imagenActualResponse = await fetch(`http://localhost:5004/api/imagenesevento/usuario/${id}`);
         if (imagenActualResponse.ok) {
-          const imagenActual = await imagenActualResponse.json();
-          const idImagenActual = imagenActual.id;
-
+          
+          
+         
           // Borrar imagen actual
-          const deleteResponse = await fetch(`http://localhost:5004/api/imagenesevento/${idImagenActual}`, {
+          const deleteResponse = await fetch(`http://localhost:5004/api/imagenesevento/${id}`, {
             method: 'DELETE'
           });
 
@@ -205,9 +206,9 @@ export const useEventos = () => {
       const dataEvento = {
         nombre_evento: formValues.nombre_evento,
         fecha_evento: formValues.fecha_evento,
-        imagen: nombreImagenFinal
+        // imagen: nombreImagenFinal
       };
-
+      
       // Actualizar evento
       const putResponse = await fetch(`http://localhost:5004/api/eventos/${id}`, {
         method: 'PUT',

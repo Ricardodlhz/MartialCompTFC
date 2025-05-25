@@ -7,7 +7,7 @@ import useCrearEventos from './../hooks/useCrearEventos'
 const Eventos = () => {
   //Recojo el rol, y en caso de ser un administrador puede borrar el evento
   const { rol, email } = useRols()
-  const { datos, Submitborrar, selectedDeporte, submitRegistrarse, handleDeporteChange,SubmitModificar } = useEventos()
+  const { datos, Submitborrar, selectedDeporte, submitRegistrarse, handleDeporteChange, SubmitModificar } = useEventos()
   const { sports } = useCrearEventos()
 
   return (
@@ -58,20 +58,21 @@ const Eventos = () => {
               <h3 className="text-lg font-bold text-gray-800 mb-2 text-center">{dato.nombre_evento}</h3>
               <p className="text-gray-600 text-sm mb-1">{dato.fecha_evento.slice(0, 10)}</p>
               {rol === "Admin" && (
-                <>
+                <div className="flex flex-wrap justify-center gap-3 mt-5">
                   <button
                     onClick={() => Submitborrar(dato.id, dato.nombre_evento)}
-                    className='bg-[#d1d1d1] hover:bg-[#e7e7e7] hover:cursor-pointer mt-5 rounded-lg p-2 mr-5'>
+                    className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors duration-200"
+                  >
                     Borrar
                   </button>
                   <button
                     onClick={() => SubmitModificar(dato.id)}
-                    className='bg-[#ffd966] hover:bg-[#ffe599] hover:cursor-pointer mt-5 rounded-lg p-2'>
+                    className="bg-gray-600 text-white py-2 rounded-md hover:bg-gray-700 hover:cursor-pointer transition-colors p-2"
+                  >
                     Modificar
                   </button>
-                </>
+                </div>
               )}
-
 
               {rol === "Competidor" && (
 

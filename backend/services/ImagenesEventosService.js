@@ -49,16 +49,23 @@ const crearImagen = async ({ imagen, id_evento }) => {
 // }
 
 // Borrar imagen por id
-const borrarImagen = async (id) => {
-    try {
-        const imagen = await ImagenesEventos.findByPk(id)
-        if (!imagen) throw new Error("Imagen no encontrada")
+const borrarImagen = async (id_evento) => {
+  try {
+    const imagenes = await ImagenesEventos.findAll({ where: { id_evento } });
 
-        await imagen.destroy()
-        return { mensaje: "Imagen eliminada correctamente" }
-    } catch (error) {
-        throw new Error("Error al eliminar la imagen: " + error.message)
+    if (!imagenes || imagenes.length === 0) {
+      throw new Error("No se encontraron imágenes para este evento");
     }
+
+    // Eliminar todas las imágenes encontradas
+    for (const imagen of imagenes) {
+      await imagen.destroy();
+    }
+
+    return { mensaje: "Imágenes eliminadas correctamente" };
+  } catch (error) {
+    throw new Error("Error al eliminar las imágenes: " + error.message);
+  }
 }
 
 module.exports = {
