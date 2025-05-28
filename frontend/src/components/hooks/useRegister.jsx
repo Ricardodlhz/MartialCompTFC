@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 export const useRegister = () => {
     const [errors, setErrors] = useState({});
-
+    
     const [form, setForm] = useState({
         rol:"",
         nombre: "",
@@ -51,6 +51,7 @@ export const useRegister = () => {
     }
 
     const peticionApi = async () => {
+        
         const body = {
             rol:form.rol,
             nombre: form.nombre,
@@ -82,6 +83,12 @@ export const useRegister = () => {
                 location.href="/"
                 // navigate("/home", { replace: true });
             } else {
+              if(post.status===500){
+                 setErrors(prev => ({
+                    ...prev,
+                    email: "Este email ya está registrado"
+                }));
+              }
                 console.log("Error al registrarse " + post.status)
             }
         } catch (error) {
@@ -90,8 +97,8 @@ export const useRegister = () => {
     }
 
     const validateForm = () => {
-        const newErrors = {};
-      
+       
+         const newErrors = {};
         if (!form.nombre.trim()) newErrors.nombre = "El nombre es obligatorio";
         if (!form.apellido.trim()) newErrors.apellido = "El apellido es obligatorio";
         if (!form.rol) newErrors.rol = "Selecciona un perfil";
