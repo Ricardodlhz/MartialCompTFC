@@ -12,6 +12,7 @@ const CrearEvento = () => {
     selectedSport,
     setSelectedSport,
     handleSubmit,
+    errors
   } = useCrearEventos();
 
   return (
@@ -25,8 +26,10 @@ const CrearEvento = () => {
             value={eventName}
             onChange={(e) => setEventName(e.target.value)}
             className="w-full border border-gray-300 rounded-xl p-2 focus:ring-2 focus:ring-blue-400 outline-none"
-            required
           />
+          {errors.eventName && (
+            <p className="text-red-500 text-sm mt-1">{errors.eventName}</p>
+          )}
         </div>
 
         <div>
@@ -36,8 +39,10 @@ const CrearEvento = () => {
             value={eventDate}
             onChange={(e) => setEventDate(e.target.value)}
             className="w-full border border-gray-300 rounded-xl p-2 focus:ring-2 focus:ring-blue-400 outline-none"
-            required
           />
+          {errors.eventDate && (
+            <p className="text-red-500 text-sm mt-1">{errors.eventDate}</p>
+          )}
         </div>
 
         <div>
@@ -46,16 +51,21 @@ const CrearEvento = () => {
             value={selectedSport}
             onChange={(e) => setSelectedSport(e.target.value)}
             className="w-full border border-gray-300 rounded-xl p-2 focus:ring-2 focus:ring-blue-400 outline-none"
-            required
           >
             <option value="">Selecciona un deporte</option>
-            {sports.length>0?(sports.map((sport) => (
-              <option key={sport.id} value={sport.id}>{sport.nombre_deporte}</option>
-            ))): (
+            {sports.length > 0 ? (
+              sports.map((sport) => (
+                <option key={sport.id} value={sport.id}>{sport.nombre_deporte}</option>
+              ))
+            ) : (
               <option disabled>Cargando deportes</option>
             )}
           </select>
+          {errors.selectedSport && (
+            <p className="text-red-500 text-sm mt-1">{errors.selectedSport}</p>
+          )}
         </div>
+
 
         <div>
           <label className="block text-gray-700 font-medium mb-2">Imagen del evento</label>

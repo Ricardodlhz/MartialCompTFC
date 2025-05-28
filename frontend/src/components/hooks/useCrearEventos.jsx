@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Swal from "sweetalert2";
 
 export default function useCrearEventos() {
   const [eventName, setEventName] = useState("");
@@ -6,72 +7,62 @@ export default function useCrearEventos() {
   const [eventImage, setEventImage] = useState(null);
   const [sports, setSports] = useState([]);
   const [selectedSport, setSelectedSport] = useState("");
+  const [errors, setErrors] = useState({});
+
   const fetchSports = async () => {
     try {
-      const api = await fetch("http://localhost:5004/api/deportes")
-      const data = await api.json()
+      const api = await fetch("http://localhost:5004/api/deportes");
+      const data = await api.json();
       setSports(data);
-
-      return data
     } catch (error) {
       console.error("Error al cargar los deportes:", error);
     }
   };
+
   useEffect(() => {
-
-
     fetchSports();
   }, []);
 
+  const validateForm = () => {
+    const newErrors = {};
+    if (!eventName.trim()) newErrors.eventName = "El nombre es obligatorio";
+    if (!eventDate) newErrors.eventDate = "La fecha es obligatoria";
+    if (!selectedSport) newErrors.selectedSport = "Selecciona un deporte";
+    return newErrors;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Nombre evento: " + eventName)
-    console.log("Fecha evento: " + eventDate)
-    console.log("Id del deporte: " + selectedSport)
-    // Validación rápida
-    if (!eventName || !eventDate || !selectedSport) {
-      alert("Completa todos los campos obligatorios");
+    const validationErrors = validateForm();
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length > 0) {
       return;
     }
 
     try {
-      // 1️⃣ POST evento (sin imagen)
       const eventoResponse = await fetch("http://localhost:5004/api/eventos", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           nombre_evento: eventName,
           fecha_evento: eventDate,
           id_deporte: selectedSport,
         }),
-
-
       });
-      console.log("IMAGEN: " + eventImage.type)
+
       if (!eventoResponse.ok) throw new Error("Error creando evento");
 
       const eventoData = await eventoResponse.json();
-      console.log("Evento creado:", eventoData);
-      console.log("id deporte: " + eventoData.id)
 
-      // 2️⃣ POST imagen (si hay imagen)
       if (eventImage) {
-        let id_evento = eventoData.id
         const formData = new FormData();
         formData.append("imagen", eventImage);
-        formData.append("id_evento", id_evento); // usa el id recibido
-        console.log("id_evento" + id_evento)
-        console.log(eventImage)
+        formData.append("id_evento", eventoData.id);
+
         const imagenResponse = await fetch("http://localhost:5004/api/imagenesevento", {
           method: "POST",
-          // body: JSON.stringify({
-          //   imagen: eventImage,
-          //   id_evento: eventoData.id
-          // }),
           body: formData,
-
         });
 
         if (!imagenResponse.ok) {
@@ -80,21 +71,21 @@ export default function useCrearEventos() {
           throw new Error("Error subiendo imagen");
         }
 
-        const imagenData = await imagenResponse.json();
-        console.log("Imagen subida:", imagenData);
+        await imagenResponse.json();
       }
 
-      // alert("Evento creado correctamente");
       Swal.fire({
         title: "Evento creado correctamente",
         icon: "success",
-        draggable: true
+        draggable: true,
       });
+
       // Limpiar formulario
       setEventName("");
       setEventDate("");
       setEventImage(null);
       setSelectedSport("");
+      setErrors({});
 
     } catch (error) {
       console.error("Error al crear el evento:", error);
@@ -102,7 +93,6 @@ export default function useCrearEventos() {
         icon: "error",
         title: "Oops...",
         text: "Algo ha fallado, vuelve a intentarlo",
-        // footer: '<a href="#">Why do I have this issue?</a>'
       });
     }
   };
@@ -118,5 +108,7 @@ export default function useCrearEventos() {
     selectedSport,
     setSelectedSport,
     handleSubmit,
+    errors,
   };
 }
+
