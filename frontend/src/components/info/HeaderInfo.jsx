@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import imagen from './../../assets/logotipo.png'
 import bandera from './../../assets/españa.png'
-
+import MovilMenu from '../MovilMenu'
 import { useLogin } from './../hooks/useLogin'
 import { useRols } from '../hooks/useRol'
 const HeaderInfo = () => {
@@ -17,8 +17,10 @@ const HeaderInfo = () => {
           <img src={imagen} className='  w-[70px]' alt='Logotipo' />
           <a href='/' className='font-[Quicksand] text-xl font-medium text-white'>MartialComp</a>
         </div>
-        <i className="fa-solid fa-bars md:!hidden text-white"></i>
-
+        {/* <i className="fa-solid fa-bars md:!hidden text-white"></i> */}
+        <div className="md:hidden">
+          <MovilMenu login={login} rol={rol} handleLogout={handleLogout} />
+        </div>
         <div className='hidden md:flex gap-12 items-center'>
           <Link to={'/info/eventos'}><p className='text-white font-[Quicksand]'>Eventos</p></Link>
           <Link to={'/info/federaciones'}><p className='text-white font-[Quicksand]'>Federarme</p></Link>
