@@ -14,7 +14,8 @@ const Perfil = () => {
     handleImageChange,
     user,
     imageError,
-    borrarImagen
+    borrarImagen,
+    cambiarContraseña
   } = usePerfil(email);
 
 
@@ -69,6 +70,12 @@ const Perfil = () => {
           Gimnasio:{" "}
           <span className="text-indigo-600 font-semibold">{user.gym}</span>
         </p>
+        <button
+            onClick={() => cambiarContraseña(id)}
+            className="mt-3 cursor-pointer px-4 py-2 bg-red-600 text-white text-sm rounded-lg hover:bg-red-700 transition"
+          >
+            Cambiar Contraseña
+          </button>
       </div>
 
 

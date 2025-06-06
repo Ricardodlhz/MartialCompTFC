@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import Swal from 'sweetalert2'
 export const usePerfil = (email) => {
     const [imagePreview, setImagePreview] = useState(null);
     const [uploading, setUploading] = useState(false);
@@ -143,11 +143,95 @@ export const usePerfil = (email) => {
 
             if (borrarApi.ok) {
 
-                setTimeout(location.reload(),2000)
+                setTimeout(location.reload(), 2000)
                 console.log("BORRADO")
             }
         }
         return data
+    }
+
+
+    // const cambiarContraseña=async(id)=>{
+    //     console.log("EL ID ES : "+id)
+    //     const api=await fetch(
+    //     `http://localhost:5004/api/usuario/resetpass/${id}`,
+    //     {
+    //       method: "PUT",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify({
+    //         email: userEmail,
+    //         password: generatedPassword,
+    //       }),
+    //     }
+    //   )
+
+    //   const data=await api.json()
+    //   if(!api.ok){
+    //     throw new Error("No se pudo resetear la contraseña.");
+    //   }
+
+    //   console.log(data.message)
+    // }
+
+    const cambiarContraseña = async (id) => {
+        try {
+            const { value: nuevaPassword } = await Swal.fire({
+                title: 'Cambiar Contraseña',
+                input: 'password',
+                inputLabel: 'Nueva Contraseña',
+                inputPlaceholder: 'Escribe la nueva contraseña',
+                inputAttributes: {
+                    autocapitalize: 'off',
+                    autocorrect: 'off'
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Actualizar',
+                cancelButtonText: 'Cancelar',
+                preConfirm: (password) => {
+                    if (!password) {
+                        Swal.showValidationMessage('La contraseña no puede estar vacía');
+                    }
+                    return password;
+                }
+            });
+
+            if (nuevaPassword) {
+                // Actualizar contraseña
+                const putResponse = await fetch(`http://localhost:5004/api/usuario/resetpass/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ password: nuevaPassword })
+                });
+
+                if (putResponse.ok) {
+                    Swal.fire({
+                        title: 'Contraseña actualizada con éxito',
+                        icon: 'success',
+                        timer: 2000,
+                        timerProgressBar: true
+                    });
+                    setTimeout(() => {
+                        location.reload();
+                    }, 2000);
+                } else {
+                    Swal.fire({
+                        title: 'Error al actualizar contraseña',
+                        icon: 'error'
+                    });
+                }
+            }
+
+        } catch (error) {
+            console.error("Error al cambiar contraseña:", error);
+            Swal.fire({
+                title: 'Error al cambiar contraseña',
+                icon: 'error'
+            });
+        }
     }
     return {
         imagePreview,
@@ -158,6 +242,7 @@ export const usePerfil = (email) => {
         user,
         setImageError,
         imageError,
-        borrarImagen
+        borrarImagen,
+        cambiarContraseña
     };
 };
