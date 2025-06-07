@@ -6,7 +6,7 @@ const Login = () => {
     const { handdleInputs, handleSubmit, form, setForm, errors } = useLogin();
 
     return (
-        <div className="flex items-center justify-center  ">
+        <div className="flex items-center justify-center  mt-12">
             <form 
                 noValidate 
                 onSubmit={handleSubmit}

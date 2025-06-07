@@ -11,13 +11,13 @@ const ResetarPassword = () => {
   };
 
   return (
-    <div className="p-4 max-w-md mx-auto">
+    <div className=" max-w-md mx-auto mt-20 bg-white shadow-md rounded-lg p-8">
       <input
         type="email"
         placeholder="Introduce tu email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        className="border px-3 py-2 rounded w-full mb-2 border-white text-white"
+        className="border px-3 py-2 rounded w-full mb-2 "
       />
 
 

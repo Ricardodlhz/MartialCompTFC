@@ -21,7 +21,7 @@ const Perfil = () => {
 
 
   return (
-    <div className="max-w-sm mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
+    <div className="w-[70%] mx-auto bg-white mt-8 mb-8 rounded-2xl shadow-lg overflow-hidden">
       <div className="flex flex-col items-center p-6">
         <img
           className="w-32 h-32 rounded-full object-cover border-4 border-indigo-500"
@@ -86,11 +86,13 @@ const Perfil = () => {
             <h3 className="text-lg font-semibold text-indigo-700">
               Competición Apuntada
             </h3>
-            {user.competition.length > 0 ? (
+            <div className='flex flex-wrap items-center justify-center gap-4'>
+
+              {user.competition.length > 0 ? (
               user.competition.map((evento, index) => (
                 <div
                   key={index}
-                  className="flex items-center bg-white rounded-lg shadow-md p-4 space-x-4"
+                  className="flex items-end bg-white rounded-lg shadow-md p-4 space-x-4 flex-[400px] h-[150px] border"
                 >
                   <img
                     src={`http://localhost:5004/api/imagenesevento/usuario/${evento.id}`}
@@ -114,6 +116,7 @@ const Perfil = () => {
             ) : (
               <p className="text-gray-500">No tienes Competiciones</p>
             )}
+            </div>
           </div>
         </div>)}
 

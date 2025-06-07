@@ -15,7 +15,7 @@ const Federaciones = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto p-6 bg-white rounded-2xl shadow-md space-y-5">
+    <form onSubmit={handleSubmit} className="max-w-md mx-auto p-6 bg-white rounded-2xl shadow-md space-y-5 mt-20">
       <h2 className="text-2xl font-bold text-gray-800 text-center">Formulario de Federación</h2>
 
       <div>
