@@ -15,7 +15,8 @@ const Perfil = () => {
     user,
     imageError,
     borrarImagen,
-    cambiarContraseña
+    cambiarContraseña,
+    desregistrarEvento
   } = usePerfil(email);
 
 
@@ -34,7 +35,7 @@ const Perfil = () => {
 
         />
 
-       <div className="flex space-x-2 mt-3">
+        <div className="flex space-x-2 mt-3">
 
           <input
             type="file"
@@ -71,11 +72,11 @@ const Perfil = () => {
           <span className="text-indigo-600 font-semibold">{user.gym}</span>
         </p>
         <button
-            onClick={() => cambiarContraseña(id)}
-            className="mt-3 cursor-pointer px-4 py-2 bg-red-600 text-white text-sm rounded-lg hover:bg-red-700 transition"
-          >
-            Cambiar Contraseña
-          </button>
+          onClick={() => cambiarContraseña(id)}
+          className="mt-3 cursor-pointer px-4 py-2 bg-red-600 text-white text-sm rounded-lg hover:bg-red-700 transition"
+        >
+          Cambiar Contraseña
+        </button>
       </div>
 
 
@@ -89,33 +90,38 @@ const Perfil = () => {
             <div className='flex flex-wrap items-center justify-center gap-4'>
 
               {user.competition.length > 0 ? (
-              user.competition.map((evento, index) => (
-                <div
-                  key={index}
-                  className="flex items-end bg-white rounded-lg shadow-md p-4 space-x-4 flex-[400px] h-[150px] border"
-                >
-                  <img
-                    src={`http://localhost:5004/api/imagenesevento/usuario/${evento.id}`}
-                    alt={evento.nombre_evento}
-                    className="w-[40%] h-[120px] object-cover rounded-md"
-                  />
-                  <div className='flex flex-col justify-center text-center  w-[60%]'>
-                    <p className="text-lg font-semibold">{evento.nombre_evento}</p>
-                    <p className="text-gray-600">{evento.fecha_evento.slice(0, 10)}</p>
-                    <PdfButton
-                      nombreEvento={evento.nombre_evento}
-                      fecha={evento.fecha_evento.slice(0, 10)}
-                      localizacion="Madrid, España"
-                      nombreUser={user.name}
-                      apellidos={user.apellido}
+                user.competition.map((evento, index) => (
+                  <div
+                    key={index}
+                    className="flex items-end bg-white rounded-lg shadow-md p-4 space-x-4 flex-[400px] h-[150px] border"
+                  >
+                    <img
+                      src={`http://localhost:5004/api/imagenesevento/usuario/${evento.id}`}
+                      alt={evento.nombre_evento}
+                      className="w-[40%] h-[120px] object-cover rounded-md"
                     />
-
+                    <div className='flex flex-col justify-center text-center  w-[60%]'>
+                      <p className="text-lg font-semibold">{evento.nombre_evento}</p>
+                      <p className="text-gray-600">{evento.fecha_evento.slice(0, 10)}</p>
+                      <PdfButton
+                        nombreEvento={evento.nombre_evento}
+                        fecha={evento.fecha_evento.slice(0, 10)}
+                        localizacion="Madrid, España"
+                        nombreUser={user.name}
+                        apellidos={user.apellido}
+                      />
+                      <button
+                        onClick={() => desregistrarEvento(user.id_usuario, evento.id)}
+                        className="mt-2 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition"
+                      >
+                        Desregistrar
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))
-            ) : (
-              <p className="text-gray-500">No tienes Competiciones</p>
-            )}
+                ))
+              ) : (
+                <p className="text-gray-500">No tienes Competiciones</p>
+              )}
             </div>
           </div>
         </div>)}

@@ -57,7 +57,7 @@ const Federaciones = () => {
         {loading ? 'Federando...' : 'Federarme'}
       </button>
 
-      {error && <p className="text-red-500 text-center">{error}</p>}
+      {error && <p className="text-red-500 text-center">{"Debes iniciar sesion para federarte"}</p>}
       {/* {response && <p className="text-green-600 text-center">Federado correctamente 🎉</p>} */}
     </form>
   )

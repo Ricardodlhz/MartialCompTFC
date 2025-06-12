@@ -84,7 +84,7 @@ const Eventos = () => {
             </div>
           ))
         ) : (
-          <p className="text-center text-gray-500 col-span-full">Cargando Datos...</p>
+          <p className="text-center text-gray-500 col-span-full">No existen competiciones para ese deporte, pruebe con otro.</p>
         )}
       </div>
 

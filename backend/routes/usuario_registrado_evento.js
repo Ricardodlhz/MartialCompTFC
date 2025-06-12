@@ -44,4 +44,49 @@ router.get('/:id_usuario', async (req, res) => {
     res.status(500).json({ message: 'Error al obtener eventos del usuario' });
   }
 });
+
+
+// DELETE /registrarUsuarioEvento
+// router.delete('/', async (req, res) => {
+//   const { id_usuario, id_evento } = req.body;
+
+//   try {
+//     // Buscar el usuario y el evento
+//     const usuario = await Usuario.findByPk(id_usuario);
+//     const evento = await Evento.findByPk(id_evento);
+
+//     if (!usuario || !evento) {
+//       return res.status(404).json({ message: 'Usuario o Evento no encontrado' });
+//     }
+
+//     // Eliminar la asociación
+//     await usuario.removeEvento(evento);
+
+//     res.status(200).json({ message: 'Usuario desregistrado del evento correctamente' });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: 'Error al desregistrar usuario del evento' });
+//   }
+// });
+
+router.delete('/:id_usuario/:id_evento', async (req, res) => {
+  const { id_usuario, id_evento } = req.params;
+
+  try {
+    const usuario = await Usuario.findByPk(id_usuario);
+    const evento = await Evento.findByPk(id_evento);
+
+    if (!usuario || !evento) {
+      return res.status(404).json({ message: 'Usuario o Evento no encontrado' });
+    }
+
+    await usuario.removeEvento(evento);
+
+    res.status(200).json({ message: 'Usuario desregistrado del evento correctamente' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al desregistrar usuario del evento' });
+  }
+});
+
 module.exports = router;

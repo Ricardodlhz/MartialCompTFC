@@ -233,6 +233,95 @@ export const usePerfil = (email) => {
             });
         }
     }
+
+//     const handleDesregistrar = async (idUsuario, idEvento) => {
+//   try {
+//     const confirm = await Swal.fire({
+//       title: '¿Estás seguro?',
+//       text: 'Vas a eliminar tu inscripción en este evento.',
+//       icon: 'warning',
+//       showCancelButton: true,
+//       confirmButtonText: 'Sí, desregistrarme',
+//       cancelButtonText: 'Cancelar'
+//     });
+
+//     if (confirm.isConfirmed) {
+//       const response = await fetch('http://localhost:5004/api/usuarioregistradoevento', {
+//         method: 'DELETE',
+//         headers: {
+//           'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({
+//           id_usuario: idUsuario,
+//           id_evento: idEvento
+//         })
+//       });
+
+//       const data = await response.json();
+
+//       if (response.ok) {
+//         Swal.fire({
+//           title: 'Desregistrado',
+//           text: data.message,
+//           icon: 'success',
+//           timer: 2000,
+//           timerProgressBar: true
+//         });
+
+//         setTimeout(() => {
+//           location.reload();
+//         }, 2000);
+
+//       } else {
+//         Swal.fire({
+//           title: 'Error',
+//           text: data.message,
+//           icon: 'error'
+//         });
+//       }
+//     }
+
+//   } catch (error) {
+//     console.error('Error al desregistrar:', error);
+//     Swal.fire({
+//       title: 'Error en la solicitud',
+//       text: 'Ocurrió un error al intentar desregistrarte.',
+//       icon: 'error'
+//     });
+//   }
+// };
+    const desregistrarEvento = async (idUsuario, idEvento) => {
+  try {
+    const response = await fetch(`http://localhost:5004/api/usuarioregistradoevento/${idUsuario}/${idEvento}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (response.ok) {
+      Swal.fire({
+        title: 'Desregistrado correctamente',
+        icon: 'success',
+        timer: 1500,
+        showConfirmButton: false
+      });
+      // Recargar competiciones apuntadas
+      competicionesApuntado(idUsuario);
+    } else {
+      Swal.fire({
+        title: 'Error al desregistrar',
+        icon: 'error'
+      });
+    }
+  } catch (error) {
+    console.error("Error al desregistrar evento:", error);
+    Swal.fire({
+      title: 'Error en la operación',
+      icon: 'error'
+    });
+  }
+};
     return {
         imagePreview,
         uploading,
@@ -243,6 +332,7 @@ export const usePerfil = (email) => {
         setImageError,
         imageError,
         borrarImagen,
+        desregistrarEvento,
         cambiarContraseña
     };
 };
